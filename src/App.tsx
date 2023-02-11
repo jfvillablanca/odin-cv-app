@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { Component } from "react";
 import "./App.scss";
 
-function App() {
-    return (
-        <div className='App'>
-            <h1>I should be able to run in TypeScript</h1>
-        </div>
-    );
+class App extends Component {
+    render() {
+        return (
+            <div className='App h-screen w-screen bg-gray-500'>
+            </div>
+        );
+    }
 }
 
 export default App;
