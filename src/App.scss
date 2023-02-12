@@ -10,9 +10,14 @@
     --zoom-adjust: 1.4;
     --A4-width: calc(210mm / var(--zoom-adjust));
     --A4-height: calc(297mm / var(--zoom-adjust));
+    --A4-padding: calc(12.5mm / var(--zoom-adjust));
     --aspect-ratio: calc(var(--A4-width) / var(var(--A4-height)));
 
     min-width: var(--A4-width);
+    width: var(--A4-width);
     min-height: var(--A4-height);
+    height: var(--A4-height);
     aspect-ratio: var(--aspect-ratio);
+    box-shadow: 5px 5px 5px rgba(30,30,30,0.6);
+    padding: var(--A4-padding);
 }
