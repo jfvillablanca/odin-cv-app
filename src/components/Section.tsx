@@ -1,3 +1,4 @@
+import { nanoid } from "nanoid";
 import { Component } from "react";
 
 class Section extends Component {
