@@ -1,5 +1,6 @@
 import { nanoid } from "nanoid";
 import { Component } from "react";
+import BlockContainer from "./BlockContainer";
 import Header from "./Header";
 
 class Section extends Component {
