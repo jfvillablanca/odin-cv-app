@@ -1,36 +1,30 @@
 import { nanoid } from "nanoid";
 import { Component } from "react";
-import Header from "./Header";
-
-class Section extends Component {
-    render() {
-        return (
-            <div className='Section'>
-            </div>
-        );
-    }
-}
-
-export default Section;
 
 class Header extends Component {
     fakeProps = {
         fullName: "Lorem Ipsum",
         statement:
             "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi.",
-        subfields: [[nanoid(),"profession", "professor"], [nanoid(),"phone","696969"], [nanoid(),"email","email@email.com"]],
+        subfields: [
+            [nanoid(), "profession", "professor"],
+            [nanoid(), "phone", "696969"],
+            [nanoid(), "email", "email@email.com"],
+        ],
     };
 
     render() {
-        const { fullName, statement, subfields } =
-            this.fakeProps;
-        const headerSubFields = subfields.map(subfield => {
-            return(
-                <div key={subfield[0]} className='flex justify-between py-3 uppercase text-lg tracking-wider font-extrabold'>
+        const { fullName, statement, subfields } = this.fakeProps;
+        const headerSubFields = subfields.map((subfield) => {
+            return (
+                <div
+                    key={subfield[0]}
+                    className='flex justify-between py-3 uppercase text-lg tracking-wider font-extrabold'
+                >
                     <p>{subfield[1]}</p>
                     <p>{subfield[2]}</p>
                 </div>
-            )
+            );
         });
 
         return (
@@ -46,3 +40,4 @@ class Header extends Component {
         );
     }
 }
+export default Header;
