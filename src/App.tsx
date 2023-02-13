@@ -5,6 +5,13 @@ import A4 from "./components/A4";
 import BlockContainer from "./components/BlockContainer";
 import Header from "./components/Header";
 
+interface Field {
+    id: string;
+    main: string;
+    sub?: string;
+    p?: string;
+}
+
 class App extends Component {
     render() {
         return (
