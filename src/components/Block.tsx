@@ -1,26 +1,20 @@
-import { nanoid } from "nanoid";
 import { Component } from "react";
 
-class Block extends Component {
+interface Field {
+    id: string;
+    main: string;
+    sub?: string;
+    p?: string;
+}
+
+interface Props {
+    blockHeading: string;
+    blockFields?: Array<Field>;
+}
+
+class Block extends Component<Props> {
     render() {
-        // NOTE: Mocks for props
-        const blockHeading = "Experience";
-        const field1 = {
-            id: nanoid(),
-            main: "Horizon Expert",
-            sub: "2021-Present",
-            p: "Lorem ipsum shitsadfskadjhf",
-        };
-
-        const field2 = {
-            id: nanoid(),
-            main: "Horizon professor",
-            sub: "2012-2017",
-            p: "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
-        };
-
-        const blockFields = [field1, field2];
-
+        const { blockHeading, blockFields = [] } = this.props;
         const fieldComps = blockFields.map((field) => {
             return (
                 <div className='py-5' key={field.id}>
