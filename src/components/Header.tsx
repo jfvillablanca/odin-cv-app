@@ -1,20 +1,16 @@
-import { nanoid } from "nanoid";
 import { Component } from "react";
 
-class Header extends Component {
-    fakeProps = {
-        fullName: "Lorem Ipsum",
-        statement:
-            "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi.",
-        subfields: [
-            [nanoid(), "profession", "professor"],
-            [nanoid(), "phone", "696969"],
-            [nanoid(), "email", "email@email.com"],
-        ],
+interface Props {
+    headerValues: {
+        fullName: string;
+        statement?: string;
+        subfields?: Array<[string, string, string]>;
     };
+}
 
+class Header extends Component<Props> {
     render() {
-        const { fullName, statement, subfields } = this.fakeProps;
+        const { fullName, statement, subfields = [] } = this.props.headerValues;
         const headerSubFields = subfields.map((subfield) => {
             return (
                 <div
