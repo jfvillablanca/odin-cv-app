@@ -1,7 +1,7 @@
 import { Component } from "react";
 
 interface Props {
-    headerValues: {
+    headerFields: {
         fullName: string;
         statement?: string;
         subfields?: Array<[string, string, string]>;
@@ -10,7 +10,7 @@ interface Props {
 
 class Header extends Component<Props> {
     render() {
-        const { fullName, statement, subfields = [] } = this.props.headerValues;
+        const { fullName, statement, subfields = [] } = this.props.headerFields;
         const headerSubFields = subfields.map((subfield) => {
             return (
                 <div

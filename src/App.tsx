@@ -25,6 +25,19 @@ interface BlockValues {
 }
 
 class App extends Component {
+    state = {
+        headerFields: {
+            fullName: "Lorem Ipsum",
+            statement:
+                "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi.",
+            subfields: [
+                [nanoid(), "profession", "professor"],
+                [nanoid(), "phone", "696969"],
+                [nanoid(), "email", "email@email.com"],
+            ],
+        } as HeaderValues,
+    };
+
     blockTemplate: BlockValues = {
         blockHeading: "Experience",
         blockFields: [
@@ -43,22 +56,13 @@ class App extends Component {
         ] as Array<Field>,
     };
 
-    headerTemplate: HeaderValues = {
-        fullName: "Lorem Ipsum",
-        statement:
-            "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi.",
-        subfields: [
-            [nanoid(), "profession", "professor"],
-            [nanoid(), "phone", "696969"],
-            [nanoid(), "email", "email@email.com"],
-        ],
-    };
-
     render() {
         return (
             <div className='App bg-gray-500 py-14 px-10'>
                 <A4>
-                    <Header headerValues={this.headerTemplate} />
+                    <Header
+                        headerFields={this.state.headerFields}
+                    />
                     <BlockContainer>
                         <Block
                             blockValues={this.blockTemplate}
