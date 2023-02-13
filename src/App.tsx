@@ -1,3 +1,4 @@
+import { nanoid } from "nanoid";
 import { Component } from "react";
 import "./App.scss";
 import A4 from "./components/A4";
