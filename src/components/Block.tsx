@@ -8,13 +8,15 @@ interface Field {
 }
 
 interface Props {
-    blockHeading: string;
-    blockFields?: Array<Field>;
+    blockValues: {
+        blockHeading: string;
+        blockFields?: Array<Field>;
+    };
 }
 
 class Block extends Component<Props> {
     render() {
-        const { blockHeading, blockFields = [] } = this.props;
+        const { blockHeading, blockFields = [] } = this.props.blockValues;
         const fieldComps = blockFields.map((field) => {
             return (
                 <div className='py-5' key={field.id}>
