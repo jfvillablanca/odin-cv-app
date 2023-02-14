@@ -27,11 +27,24 @@ class Field extends Component<Props> {
         } = this.props;
 
         const Tag = tag;
-        return (
-            !isEditMode 
-                ? <Tag className={className} onClick={handleEditMode} data-name={dataName}>{textContent}</Tag>
+        return !isEditMode || activeField !== dataName ? (
+            <Tag
+                className={className}
+                onClick={() => handleOnClick(dataName)}
+                data-name={dataName}
+            >
+                {textContent}
+            </Tag>
+        ) : (
+            <input
+                className={className}
+                data-name={dataName}
+                onBlur={() => handleOnBlur(dataName)}
+                onChange={handleFormInput}
+                value={textContent}
+            />
         );
     }
-};
+}
 
 export default Field;
