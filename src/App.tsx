@@ -79,6 +79,21 @@ class App extends Component<{}, State> {
         });
     };
 
+    handleOnClick = (dataName: string) => {
+        this.setState({
+            editMode: true,
+            currentTarget: dataName,
+        });
+    };
+
+    handleOnBlur = (dataName: string) => {
+        if (this.state.currentTarget === dataName) {
+            this.setState({
+                editMode: false,
+                currentTarget: null,
+            });
+        }
+    };
 
     render() {
         return (
