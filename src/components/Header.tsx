@@ -35,7 +35,7 @@ class Header extends Component<Props> {
             return (
                 <div
                     key={subfield[0]}
-                    className='flex justify-between py-3 uppercase text-lg tracking-wider font-extrabold'
+                    className={`flex justify-between py-3 uppercase text-lg tracking-wider font-extrabold ${!isEditMode ? `${hoverColor.blue}`: ''}`}
                 >
                     <Field
                         tag={"h3"}
