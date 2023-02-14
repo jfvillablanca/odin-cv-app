@@ -74,10 +74,22 @@ class Header extends Component<Props> {
                         handleFormInput={handleFormInput}
                         activeField={activeField}
                     />
-                    <p className='text-gray-600 mb-6'>{statement}</p>
                     <div className='flex flex-col border-t-2 border-b-2 border-gray-500 divide-y-2 divide-gray-500'>
                         {headerSubFields}
                     </div>
+                    {!!statement && (
+                        <Field
+                            tag={"p"}
+                            isEditMode={isEditMode}
+                            className='text-gray-600 mb-6'
+                            dataName={"headerFields|statement"}
+                            textContent={statement}
+                            handleOnClick={handleOnClick}
+                            handleOnBlur={handleOnBlur}
+                            handleFormInput={handleFormInput}
+                            activeField={activeField}
+                        />
+                    )}
                 </div>
             </div>
         );
