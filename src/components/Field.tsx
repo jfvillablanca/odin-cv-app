@@ -27,23 +27,27 @@ class Field extends Component<Props> {
         } = this.props;
 
         const Tag = tag;
-        return !isEditMode || activeField !== dataName ? (
-            <Tag
-                className={className}
-                onClick={() => handleOnClick(dataName)}
-                data-name={dataName}
-            >
-                {textContent}
-            </Tag>
-        ) : (
-            <input
-                className={className}
-                data-name={dataName}
-                onBlur={() => handleOnBlur(dataName)}
-                onChange={handleFormInput}
-                value={textContent}
-            />
-        );
+        if (!isEditMode || activeField !== dataName) {
+            return (
+                <Tag
+                    className={className}
+                    onClick={() => handleOnClick(dataName)}
+                    data-name={dataName}
+                >
+                    {textContent}
+                </Tag>
+            );
+        } else {
+            return (
+                <input
+                    className={className}
+                    data-name={dataName}
+                    onBlur={() => handleOnBlur(dataName)}
+                    onChange={handleFormInput}
+                    value={textContent}
+                />
+            );
+        }
     }
 }
 
