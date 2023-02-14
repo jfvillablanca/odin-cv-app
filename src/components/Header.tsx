@@ -1,7 +1,7 @@
 import { Component } from "react";
 import Field from "./Field";
 
-interface Props {
+interface HeaderProps {
     isEditMode: boolean;
     handleOnClick: Function;
     handleOnBlur: Function;
@@ -14,7 +14,7 @@ interface Props {
     };
 }
 
-class Header extends Component<Props> {
+class Header extends Component<HeaderProps> {
     render() {
         const hoverColor = {
             blue: 'hover:bg-blue-100',
