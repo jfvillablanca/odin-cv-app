@@ -118,4 +118,16 @@ class App extends Component<{}, State> {
     }
 }
 
+function checkForEmptyField(stateKeys: [string, string], value: string) {
+    console.log(value)
+    if (
+        stateKeys[0] === "headerFields" &&
+        stateKeys[1] === "fullName" &&
+        value === ""
+    ) {
+        return "Your name here";
+    }
+    return value;
+}
+
 export default App;
