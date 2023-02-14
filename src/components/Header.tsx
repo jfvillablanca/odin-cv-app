@@ -28,14 +28,34 @@ class Header extends Component<Props> {
             event: React.SyntheticEvent
         ) => void;
         const { fullName, statement, subfields = [] } = this.props.headerFields;
-        const headerSubFields = subfields.map((subfield) => {
+        const headerSubFields = subfields.map((subfield, index) => {
             return (
                 <div
                     key={subfield[0]}
                     className='flex justify-between py-3 uppercase text-lg tracking-wider font-extrabold'
                 >
-                    <p>{subfield[1]}</p>
-                    <p>{subfield[2]}</p>
+                    <Field
+                        tag={"h3"}
+                        isEditMode={isEditMode}
+                        className=''
+                        dataName={`headerFields|subfields|${index}|1`}
+                        textContent={subfield[1]}
+                        handleOnClick={handleOnClick}
+                        handleOnBlur={handleOnBlur}
+                        handleFormInput={handleFormInput}
+                        activeField={activeField}
+                    />
+                    <Field
+                        tag={"h3"}
+                        isEditMode={isEditMode}
+                        className=''
+                        dataName={`headerFields|subfields|${index}|2`}
+                        textContent={subfield[2]}
+                        handleOnClick={handleOnClick}
+                        handleOnBlur={handleOnBlur}
+                        handleFormInput={handleFormInput}
+                        activeField={activeField}
+                    />
                 </div>
             );
         });
