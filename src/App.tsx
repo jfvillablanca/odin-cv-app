@@ -83,6 +83,9 @@ class App extends Component<{}, State> {
             <div className='App bg-gray-500 py-14 px-10'>
                 <A4>
                     <Header
+                        isEditMode={this.state.editMode}
+                        handleEditMode={this.handleEditMode}
+                        handleFormInput={this.handleFormInput}
                         headerFields={this.state.headerFields}
                     />
                     <BlockContainer>
