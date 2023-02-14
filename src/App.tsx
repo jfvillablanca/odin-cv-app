@@ -73,7 +73,8 @@ class App extends Component<{}, State> {
             string?,
             string?
         ];
-        const [key1, key2, key3 = '', key4 = ''] = stateKeys;
+        const [key1, key2, key3 = "", key4 = ""] = stateKeys;
+        const updatedValue = checkForEmptyField([key1, key2], target.value);
 
         this.setState((prevState) => {
             const updatedState = { ...prevState };
