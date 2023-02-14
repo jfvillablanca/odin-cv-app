@@ -74,9 +74,6 @@ class Header extends Component<Props> {
                         handleFormInput={handleFormInput}
                         activeField={activeField}
                     />
-                    <div className='flex flex-col border-t-2 border-b-2 border-gray-500 divide-y-2 divide-gray-500'>
-                        {headerSubFields}
-                    </div>
                     {!!statement && (
                         <Field
                             tag={"p"}
@@ -89,6 +86,11 @@ class Header extends Component<Props> {
                             handleFormInput={handleFormInput}
                             activeField={activeField}
                         />
+                    )}
+                    {subfields.length !== 0 && (
+                        <div className='flex flex-col border-t-2 border-b-2 border-gray-500 divide-y-2 divide-gray-500'>
+                            {headerSubFields}
+                        </div>
                     )}
                 </div>
             </div>
