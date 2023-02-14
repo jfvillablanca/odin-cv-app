@@ -17,7 +17,16 @@ interface Props {
 class Header extends Component<Props> {
     render() {
         const isEditMode = this.props.isEditMode;
-        const handleFormInput = this.props.handleFormInput as (event: React.SyntheticEvent) => void;
+        const activeField = this.props.activeField;
+        const handleOnClick = this.props.handleOnClick as (
+            dataName: string
+        ) => void;
+        const handleOnBlur = this.props.handleOnBlur as (
+            dataName: string
+        ) => void;
+        const handleFormInput = this.props.handleFormInput as (
+            event: React.SyntheticEvent
+        ) => void;
         const { fullName, statement, subfields = [] } = this.props.headerFields;
         const headerSubFields = subfields.map((subfield) => {
             return (
