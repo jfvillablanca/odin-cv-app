@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 interface Props {
-    tag: keyof JSX.IntrinsicElements; 
+    tag: keyof JSX.IntrinsicElements;
     isEditMode: boolean;
     className: string;
     dataName: string;
