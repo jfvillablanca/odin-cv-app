@@ -63,6 +63,17 @@ class App extends Component<{}, State> {
         ] as Array<Field>,
     };
 
+    handleFormInput = (event: React.SyntheticEvent) => {
+        const target = event.target as HTMLInputElement;
+        const stateKeys = (target.dataset as any).name.split("|") as [string, string];
+
+        this.setState(prevState => {
+            const updatedState = {...prevState};
+            updatedState[stateKeys[0]][stateKeys[1]] = target.value;
+            return updatedState;
+        })
+    }
+
     handleEditMode = () => {
         this.setState(prevState => ({ editMode: !prevState.editMode }))
     }
