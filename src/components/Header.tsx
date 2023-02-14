@@ -66,18 +66,7 @@ class Header extends Component<Props> {
         return (
             <div className='Section grid w-full mb-9'>
                 <div className='flex flex-col'>
-                    <Field
-                        tag={"h1"}
-                        isEditMode={isEditMode}
-                        className='font-semibold text-3xl mb-6'
-                        dataName={"headerFields|fullName"}
-                        textContent={fullName}
-                        handleOnClick={handleOnClick}
-                        handleOnBlur={handleOnBlur}
-                        handleFormInput={handleFormInput}
-                        activeField={activeField}
-                    />
-                    {!!statement && (
+                    <div className={!isEditMode ? `${hoverColor.blue}`: ''}>
                         <Field
                             tag={"p"}
                             isEditMode={isEditMode}
@@ -89,6 +78,7 @@ class Header extends Component<Props> {
                             handleFormInput={handleFormInput}
                             activeField={activeField}
                         />
+                    </div>
                     )}
                     {subfields.length !== 0 && (
                         <div className='flex flex-col border-t-2 border-b-2 border-gray-500 divide-y-2 divide-gray-500'>
