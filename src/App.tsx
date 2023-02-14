@@ -24,8 +24,15 @@ interface BlockValues {
     blockFields?: Array<Field>;
 }
 
-class App extends Component {
-    state = {
+interface State {
+    editMode: boolean;
+    headerFields: HeaderValues; 
+    [key: string]: any;
+}
+
+class App extends Component<{}, State> {
+    state: State = {
+        editMode: false,
         headerFields: {
             fullName: "Lorem Ipsum",
             statement:
