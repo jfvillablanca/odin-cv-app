@@ -79,6 +79,20 @@ class Header extends Component<Props> {
                             activeField={activeField}
                         />
                     </div>
+                    {!!statement && (
+                        <div className={!isEditMode ? `${hoverColor.blue}`: ''}>
+                            <Field
+                                tag={"p"}
+                                isEditMode={isEditMode}
+                                className='w-full text-gray-600 mb-6'
+                                dataName={"headerFields|statement"}
+                                textContent={statement}
+                                handleOnClick={handleOnClick}
+                                handleOnBlur={handleOnBlur}
+                                handleFormInput={handleFormInput}
+                                activeField={activeField}
+                            />
+                        </div>
                     )}
                     {subfields.length !== 0 && (
                         <div className='flex flex-col border-t-2 border-b-2 border-gray-500 divide-y-2 divide-gray-500'>
