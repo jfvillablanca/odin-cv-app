@@ -1,6 +1,9 @@
 import { Component } from "react";
 
 interface Props {
+    isEditMode: boolean;
+    handleEditMode: Function;
+    handleFormInput: Function;
     headerFields: {
         fullName: string;
         statement?: string;
@@ -10,6 +13,9 @@ interface Props {
 
 class Header extends Component<Props> {
     render() {
+        const isEditMode = this.props.isEditMode;
+        const handleEditMode = this.props.handleEditMode as React.FormEventHandler<HTMLHeadingElement>;
+        const handleFormInput = this.props.handleFormInput as React.FormEventHandler<HTMLHeadingElement>;
         const { fullName, statement, subfields = [] } = this.props.headerFields;
         const headerSubFields = subfields.map((subfield) => {
             return (
