@@ -38,15 +38,28 @@ class Field extends Component<Props> {
                 </Tag>
             );
         } else {
-            return (
-                <input
-                    className={className}
-                    data-name={dataName}
-                    onBlur={() => handleOnBlur(dataName)}
-                    onChange={handleFormInput}
-                    value={textContent}
-                />
-            );
+            switch (Tag) {
+                case "p":
+                return (
+                    <textarea
+                        className={className}
+                        data-name={dataName}
+                        onBlur={() => handleOnBlur(dataName)}
+                        onChange={handleFormInput}
+                        value={textContent}
+                    />
+                );
+                default:
+                return (
+                    <input
+                        className={className}
+                        data-name={dataName}
+                        onBlur={() => handleOnBlur(dataName)}
+                        onChange={handleFormInput}
+                        value={textContent}
+                    />
+                );
+            }
         }
     }
 }
