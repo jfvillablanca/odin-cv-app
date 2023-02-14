@@ -79,9 +79,6 @@ class App extends Component<{}, State> {
         });
     };
 
-    handleEditMode = () => {
-        this.setState(prevState => ({ editMode: !prevState.editMode }))
-    }
 
     render() {
         return (
@@ -89,7 +86,6 @@ class App extends Component<{}, State> {
                 <A4>
                     <Header
                         isEditMode={this.state.editMode}
-                        handleEditMode={this.handleEditMode}
                         handleFormInput={this.handleFormInput}
                         headerFields={this.state.headerFields}
                     />

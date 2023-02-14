@@ -3,7 +3,6 @@ import Field from "./Field";
 
 interface Props {
     isEditMode: boolean;
-    handleEditMode: Function;
     handleFormInput: Function;
     headerFields: {
         fullName: string;
@@ -15,7 +14,6 @@ interface Props {
 class Header extends Component<Props> {
     render() {
         const isEditMode = this.props.isEditMode;
-        const handleEditMode = this.props.handleEditMode as React.FormEventHandler<HTMLElement>;
         const handleFormInput = this.props.handleFormInput as (event: React.SyntheticEvent) => void;
         const { fullName, statement, subfields = [] } = this.props.headerFields;
         const headerSubFields = subfields.map((subfield) => {
@@ -39,7 +37,6 @@ class Header extends Component<Props> {
                         className='font-semibold text-3xl mb-6' 
                         dataName={"headerFields|fullName"} 
                         textContent={fullName} 
-                        handleEditMode={handleEditMode} 
                         handleFormInput={handleFormInput} 
                     />
                     <p className='text-gray-600 mb-6'>{statement}</p>

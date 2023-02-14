@@ -1,4 +1,4 @@
-import React, { Component, FormEventHandler } from 'react';
+import React, { Component } from "react";
 
 interface Props {
     tag: keyof JSX.IntrinsicElements; 
@@ -6,7 +6,6 @@ interface Props {
     className: string;
     dataName: string;
     textContent: string;
-    handleEditMode: FormEventHandler;
     handleFormInput: (event: React.SyntheticEvent) => void;
 }
 
