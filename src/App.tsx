@@ -101,6 +101,9 @@ class App extends Component<{}, State> {
                 <A4>
                     <Header
                         isEditMode={this.state.editMode}
+                        handleOnClick={this.handleOnClick}
+                        handleOnBlur={this.handleOnBlur}
+                        activeField={this.state.currentTarget}
                         handleFormInput={this.handleFormInput}
                         headerFields={this.state.headerFields}
                     />
