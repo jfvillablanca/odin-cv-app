@@ -16,6 +16,9 @@ interface Props {
 
 class Header extends Component<Props> {
     render() {
+        const hoverColor = {
+            blue: 'hover:bg-blue-100',
+        };
         const isEditMode = this.props.isEditMode;
         const activeField = this.props.activeField;
         const handleOnClick = this.props.handleOnClick as (
