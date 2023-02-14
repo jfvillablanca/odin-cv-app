@@ -63,13 +63,16 @@ class Header extends Component<Props> {
         return (
             <div className='Section grid w-full mb-9'>
                 <div className='flex flex-col'>
-                    <Field 
-                        tag={"h1"} 
+                    <Field
+                        tag={"h1"}
                         isEditMode={isEditMode}
-                        className='font-semibold text-3xl mb-6' 
-                        dataName={"headerFields|fullName"} 
-                        textContent={fullName} 
-                        handleFormInput={handleFormInput} 
+                        className='font-semibold text-3xl mb-6'
+                        dataName={"headerFields|fullName"}
+                        textContent={fullName}
+                        handleOnClick={handleOnClick}
+                        handleOnBlur={handleOnBlur}
+                        handleFormInput={handleFormInput}
+                        activeField={activeField}
                     />
                     <p className='text-gray-600 mb-6'>{statement}</p>
                     <div className='flex flex-col border-t-2 border-b-2 border-gray-500 divide-y-2 divide-gray-500'>
