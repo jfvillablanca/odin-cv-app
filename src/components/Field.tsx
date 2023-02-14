@@ -6,6 +6,9 @@ interface Props {
     className: string;
     dataName: string;
     textContent: string;
+    handleOnClick: (dataName: string) => void;
+    handleOnBlur: (dataName: string) => void;
+    activeField: string | null;
     handleFormInput: (event: React.SyntheticEvent) => void;
 }
 
