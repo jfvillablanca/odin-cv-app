@@ -78,7 +78,12 @@ class App extends Component<{}, State> {
 
         this.setState((prevState) => {
             const updatedState = { ...prevState };
-            updatedState[stateKeys[0]][stateKeys[1]] = target.value;
+            if (Array.isArray(updatedState[key1][key2])) {
+                const stateArray = updatedState[key1][key2];
+                stateArray[key3 as string][key4 as string] = updatedValue;
+                return stateArray;
+            }
+            updatedState[stateKeys[0]][stateKeys[1]] = updatedValue;
             return updatedState;
         });
     };
