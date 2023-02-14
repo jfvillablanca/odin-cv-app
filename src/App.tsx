@@ -69,12 +69,21 @@ class App extends Component<{}, State> {
         const target = event.target as HTMLInputElement;
         const stateKeys = (target.dataset as any).name.split("|") as [
             string,
-            string
+            string,
+            string?,
+            string?
         ];
+        const [key1, key2, key3 = "", key4 = ""] = stateKeys;
+        const updatedValue = checkForEmptyField([key1, key2], target.value);
 
         this.setState((prevState) => {
             const updatedState = { ...prevState };
-            updatedState[stateKeys[0]][stateKeys[1]] = target.value;
+            if (Array.isArray(updatedState[key1][key2])) {
+                const stateArray = updatedState[key1][key2];
+                stateArray[key3 as string][key4 as string] = updatedValue;
+                return stateArray;
+            }
+            updatedState[stateKeys[0]][stateKeys[1]] = updatedValue;
             return updatedState;
         });
     };

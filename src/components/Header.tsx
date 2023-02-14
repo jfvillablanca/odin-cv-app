@@ -28,14 +28,34 @@ class Header extends Component<Props> {
             event: React.SyntheticEvent
         ) => void;
         const { fullName, statement, subfields = [] } = this.props.headerFields;
-        const headerSubFields = subfields.map((subfield) => {
+        const headerSubFields = subfields.map((subfield, index) => {
             return (
                 <div
                     key={subfield[0]}
                     className='flex justify-between py-3 uppercase text-lg tracking-wider font-extrabold'
                 >
-                    <p>{subfield[1]}</p>
-                    <p>{subfield[2]}</p>
+                    <Field
+                        tag={"h3"}
+                        isEditMode={isEditMode}
+                        className=''
+                        dataName={`headerFields|subfields|${index}|1`}
+                        textContent={subfield[1]}
+                        handleOnClick={handleOnClick}
+                        handleOnBlur={handleOnBlur}
+                        handleFormInput={handleFormInput}
+                        activeField={activeField}
+                    />
+                    <Field
+                        tag={"h3"}
+                        isEditMode={isEditMode}
+                        className=''
+                        dataName={`headerFields|subfields|${index}|2`}
+                        textContent={subfield[2]}
+                        handleOnClick={handleOnClick}
+                        handleOnBlur={handleOnBlur}
+                        handleFormInput={handleFormInput}
+                        activeField={activeField}
+                    />
                 </div>
             );
         });
@@ -43,18 +63,35 @@ class Header extends Component<Props> {
         return (
             <div className='Section grid w-full mb-9'>
                 <div className='flex flex-col'>
-                    <Field 
-                        tag={"h1"} 
+                    <Field
+                        tag={"h1"}
                         isEditMode={isEditMode}
-                        className='font-semibold text-3xl mb-6' 
-                        dataName={"headerFields|fullName"} 
-                        textContent={fullName} 
-                        handleFormInput={handleFormInput} 
+                        className='font-semibold text-3xl mb-6'
+                        dataName={"headerFields|fullName"}
+                        textContent={fullName}
+                        handleOnClick={handleOnClick}
+                        handleOnBlur={handleOnBlur}
+                        handleFormInput={handleFormInput}
+                        activeField={activeField}
                     />
-                    <p className='text-gray-600 mb-6'>{statement}</p>
-                    <div className='flex flex-col border-t-2 border-b-2 border-gray-500 divide-y-2 divide-gray-500'>
-                        {headerSubFields}
-                    </div>
+                    {!!statement && (
+                        <Field
+                            tag={"p"}
+                            isEditMode={isEditMode}
+                            className='text-gray-600 mb-6'
+                            dataName={"headerFields|statement"}
+                            textContent={statement}
+                            handleOnClick={handleOnClick}
+                            handleOnBlur={handleOnBlur}
+                            handleFormInput={handleFormInput}
+                            activeField={activeField}
+                        />
+                    )}
+                    {subfields.length !== 0 && (
+                        <div className='flex flex-col border-t-2 border-b-2 border-gray-500 divide-y-2 divide-gray-500'>
+                            {headerSubFields}
+                        </div>
+                    )}
                 </div>
             </div>
         );
