@@ -30,7 +30,6 @@ class Field extends Component<Props> {
         return (
             !isEditMode 
                 ? <Tag className={className} onClick={handleEditMode} data-name={dataName}>{textContent}</Tag>
-                : <input className={className} autoFocus data-name={dataName} onBlur={handleEditMode} onChange={handleFormInput} value={textContent} />
         );
     }
 };
