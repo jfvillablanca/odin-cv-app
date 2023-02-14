@@ -63,6 +63,10 @@ class App extends Component<{}, State> {
         ] as Array<Field>,
     };
 
+    handleEditMode = () => {
+        this.setState(prevState => ({ editMode: !prevState.editMode }))
+    }
+
     render() {
         return (
             <div className='App bg-gray-500 py-14 px-10'>
