@@ -68,11 +68,11 @@ class Header extends Component<Props> {
                 <div className='flex flex-col'>
                     <div className={!isEditMode ? `${hoverColor.blue}`: ''}>
                         <Field
-                            tag={"p"}
+                            tag={"h1"}
                             isEditMode={isEditMode}
-                            className='text-gray-600 mb-6'
-                            dataName={"headerFields|statement"}
-                            textContent={statement}
+                            className='w-full font-semibold text-3xl mb-6'
+                            dataName={"headerFields|fullName"}
+                            textContent={fullName}
                             handleOnClick={handleOnClick}
                             handleOnBlur={handleOnBlur}
                             handleFormInput={handleFormInput}
