@@ -3,7 +3,10 @@ import Field from "./Field";
 
 interface Props {
     isEditMode: boolean;
+    handleOnClick: Function;
+    handleOnBlur: Function;
     handleFormInput: Function;
+    activeField: string | null;
     headerFields: {
         fullName: string;
         statement?: string;
