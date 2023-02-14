@@ -47,6 +47,7 @@ class Field extends Component<Props> {
                         onBlur={() => handleOnBlur(dataName)}
                         onChange={handleFormInput}
                         value={textContent}
+                        autoFocus
                     />
                 );
                 default:
@@ -57,6 +58,7 @@ class Field extends Component<Props> {
                         onBlur={() => handleOnBlur(dataName)}
                         onChange={handleFormInput}
                         value={textContent}
+                        autoFocus
                     />
                 );
             }
