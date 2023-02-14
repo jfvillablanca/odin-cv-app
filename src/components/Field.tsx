@@ -14,7 +14,18 @@ interface Props {
 
 class Field extends Component<Props> {
     render() {
-        const { tag, isEditMode, className, dataName, textContent, handleEditMode, handleFormInput } = this.props;
+        const {
+            tag,
+            isEditMode,
+            className,
+            dataName,
+            textContent,
+            handleOnClick,
+            handleOnBlur,
+            handleFormInput,
+            activeField,
+        } = this.props;
+
         const Tag = tag;
         return (
             !isEditMode 
