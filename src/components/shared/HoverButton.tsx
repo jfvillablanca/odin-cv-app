@@ -3,7 +3,7 @@ import { Component } from "react";
 class HoverButton extends Component {
     render() {
         return (
-            <div className='absolute flex z-10 h-12 bottom-0 transform -translate-x-1/2 translate-y-12 left-1/2'>
+            <div className='absolute flex gap-2 z-10 h-12 bottom-0 transform -translate-x-1/2 translate-y-12 left-1/2'>
                 <InsertButton />
                 <DeleteButton />
             </div>
