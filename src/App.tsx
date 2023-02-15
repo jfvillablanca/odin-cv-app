@@ -91,10 +91,12 @@ class App extends Component<{}, State> {
     };
 
     handleOnClick = (dataName: string) => {
-        this.setState({
-            editMode: true,
-            currentTarget: dataName,
-        });
+        if (this.state.documentMode === "field") {
+            this.setState({
+                editMode: true,
+                currentTarget: dataName,
+            });
+        }
     };
 
     handleOnBlur = (dataName: string) => {
