@@ -2,6 +2,7 @@ import { Component } from "react";
 import Field from "../shared/Field";
 import HoverButton from "../shared/HoverButton";
 import FullName from "./FullName";
+import HeaderSubfields from "./HeaderSubfields";
 import Statement from "./Statement";
 
 interface HeaderProps {
@@ -34,37 +35,6 @@ class Header extends Component<HeaderProps> {
             event: React.SyntheticEvent
         ) => void;
         const { fullName, statement, subfields = [] } = this.props.headerFields;
-        const headerSubFields = subfields.map((subfield, index) => {
-            return (
-                <div
-                    key={subfield[0]}
-                    className={`flex justify-between py-3 uppercase text-lg tracking-wider font-extrabold ${!isEditMode ? `${hoverColor.blue}`: ''}`}
-                >
-                    <Field
-                        tag={"h3"}
-                        isEditMode={isEditMode}
-                        className=''
-                        dataName={`headerFields|subfields|${index}|1`}
-                        textContent={subfield[1]}
-                        handleOnClick={handleOnClick}
-                        handleOnBlur={handleOnBlur}
-                        handleFormInput={handleFormInput}
-                        activeField={activeField}
-                    />
-                    <Field
-                        tag={"h3"}
-                        isEditMode={isEditMode}
-                        className=''
-                        dataName={`headerFields|subfields|${index}|2`}
-                        textContent={subfield[2]}
-                        handleOnClick={handleOnClick}
-                        handleOnBlur={handleOnBlur}
-                        handleFormInput={handleFormInput}
-                        activeField={activeField}
-                    />
-                </div>
-            );
-        });
 
         return (
             <div className='Section grid w-full mb-9'>
@@ -94,9 +64,17 @@ class Header extends Component<HeaderProps> {
                         </Statement>
                     )}
                     {subfields.length !== 0 && (
-                        <div className='flex flex-col border-t-2 border-b-2 border-gray-500 divide-y-2 divide-gray-500'>
-                            {headerSubFields}
-                        </div>
+                        <HeaderSubfields 
+                            hoverColor={hoverColor.blue}
+                            isEditMode={isEditMode}
+                            handleOnClick={handleOnClick}
+                            handleOnBlur={handleOnBlur}
+                            handleFormInput={handleFormInput}
+                            activeField={activeField}
+                            subfields={subfields}
+                        >
+                            <HoverButton />
+                        </HeaderSubfields>
                     )}
                 </div>
             </div>
