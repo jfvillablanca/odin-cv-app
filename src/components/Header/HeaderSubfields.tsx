@@ -11,8 +11,11 @@ interface Props {
     subfields: Array<[string, string, string]>;
     children?: React.ReactNode;
 }
+interface State {
+    isHovered: boolean[];
+}
 
-class HeaderSubfields extends Component<Props> {
+class HeaderSubfields extends Component<Props, State> {
     render() {
         const hoverButton = this.props.children;
         const hoverColor = this.props.hoverColor;
