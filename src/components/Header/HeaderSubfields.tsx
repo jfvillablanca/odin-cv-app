@@ -63,7 +63,7 @@ class HeaderSubfields extends Component<Props> {
         });
 
         return(
-            <div className='flex flex-col border-t-2 border-b-2 border-gray-500 divide-y-2 divide-gray-500'>
+            <div className='flex flex-col border-t-2 border-b-2 border-gray-400 divide-y-2 divide-gray-400'>
                 {headerSubFields}
             </div>
         )
