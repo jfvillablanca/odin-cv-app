@@ -13,7 +13,7 @@ class A4 extends Component<Props> {
                 : "text-gray-400";
 
         return (
-            <div className='A4 relative bg-gray-100 text-gray-800'>
+            <div className={`A4 relative bg-gray-100 ${textColor}`}>
                 {this.props.children}
             </div>
         )
