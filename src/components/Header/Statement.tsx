@@ -33,7 +33,7 @@ class Statement extends Component<Props> {
                 <Field
                     tag={"p"}
                     isEditMode={isEditMode}
-                    className='w-full text-gray-600 mb-6'
+                    className='w-full mb-6'
                     dataName={"headerFields|statement"}
                     textContent={statement}
                     handleOnClick={handleOnClick}
