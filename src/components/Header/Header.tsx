@@ -1,5 +1,6 @@
 import { Component } from "react";
-import Field from "./Field";
+import Field from "../shared/Field";
+import HoverButton from "../shared/HoverButton";
 
 interface HeaderProps {
     isEditMode: boolean;
@@ -80,7 +81,8 @@ class Header extends Component<HeaderProps> {
                         />
                     </div>
                     {!!statement && (
-                        <div className={!isEditMode ? `${hoverColor.blue}`: ''}>
+                        <div className={!isEditMode ? `relative ${hoverColor.blue}`: 'relative'}>
+                        <HoverButton />
                             <Field
                                 tag={"p"}
                                 isEditMode={isEditMode}
