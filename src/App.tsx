@@ -4,7 +4,7 @@ import "./App.scss";
 import A4 from "./components/A4";
 import Block from "./components/Block";
 import BlockContainer from "./components/BlockContainer";
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 
 interface Field {
     id: string;
