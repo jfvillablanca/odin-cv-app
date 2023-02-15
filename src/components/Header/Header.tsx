@@ -77,20 +77,9 @@ class Header extends Component<HeaderProps> {
                         handleFormInput={handleFormInput}
                         activeField={activeField}
                         fullName={fullName}
-                    />
+                    >
                         <HoverButton />
-                            <Field
-                                tag={"p"}
-                                isEditMode={isEditMode}
-                                className='w-full text-gray-600 mb-6'
-                                dataName={"headerFields|statement"}
-                                textContent={statement}
-                                handleOnClick={handleOnClick}
-                                handleOnBlur={handleOnBlur}
-                                handleFormInput={handleFormInput}
-                                activeField={activeField}
-                            />
-                        </div>
+                    </FullName>
                     {!!statement && (
                         <Statement
                             hoverColor={hoverColor.blue}
