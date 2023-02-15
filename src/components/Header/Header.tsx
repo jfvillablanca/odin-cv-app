@@ -2,6 +2,7 @@ import { Component } from "react";
 import Field from "../shared/Field";
 import HoverButton from "../shared/HoverButton";
 import FullName from "./FullName";
+import Statement from "./Statement";
 
 interface HeaderProps {
     isEditMode: boolean;
@@ -77,8 +78,6 @@ class Header extends Component<HeaderProps> {
                         activeField={activeField}
                         fullName={fullName}
                     />
-                    {!!statement && (
-                        <div className={!isEditMode ? `relative ${hoverColor.blue}`: 'relative'}>
                         <HoverButton />
                             <Field
                                 tag={"p"}
@@ -92,6 +91,18 @@ class Header extends Component<HeaderProps> {
                                 activeField={activeField}
                             />
                         </div>
+                    {!!statement && (
+                        <Statement
+                            hoverColor={hoverColor.blue}
+                            isEditMode={isEditMode}
+                            handleOnClick={handleOnClick}
+                            handleOnBlur={handleOnBlur}
+                            handleFormInput={handleFormInput}
+                            activeField={activeField}
+                            statement={statement}
+                        >
+                            <HoverButton />
+                        </Statement>
                     )}
                     {subfields.length !== 0 && (
                         <div className='flex flex-col border-t-2 border-b-2 border-gray-500 divide-y-2 divide-gray-500'>
