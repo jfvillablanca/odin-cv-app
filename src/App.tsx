@@ -124,6 +124,7 @@ class App extends Component<{}, State> {
                 <A4 documentMode={this.state.documentMode}>
                     <Header
                         isEditMode={this.state.editMode}
+                        documentMode={this.state.documentMode}
                         handleOnClick={this.handleOnClick}
                         handleOnBlur={this.handleOnBlur}
                         activeField={this.state.currentTarget}
