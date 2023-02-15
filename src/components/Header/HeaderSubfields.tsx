@@ -65,12 +65,12 @@ class HeaderSubfields extends Component<Props, State> {
             );
         });
 
-        return(
+        return (
             <div className='flex flex-col border-t-2 border-b-2 border-gray-400 divide-y-2 divide-gray-400'>
                 {headerSubFields}
             </div>
-        )
+        );
     }
 }
 
-export default HeaderSubfields
+export default HeaderSubfields;
