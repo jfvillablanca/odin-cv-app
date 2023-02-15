@@ -26,6 +26,7 @@ interface BlockValues {
 
 interface State {
     editMode: boolean;
+    documentMode: "section" | "field";
     currentTarget: string | null;
     headerFields: HeaderValues;
     [key: string]: any;
@@ -34,6 +35,7 @@ interface State {
 class App extends Component<{}, State> {
     state: State = {
         editMode: false,
+        documentMode: "field",
         currentTarget: null,
         headerFields: {
             fullName: "Lorem Ipsum",
@@ -121,6 +123,7 @@ class App extends Component<{}, State> {
                             blockValues={this.blockTemplate}
                         />
                     </BlockContainer>
+                    <ModifyButton documentMode={this.state.documentMode} />
                 </A4>
             </div>
         );
