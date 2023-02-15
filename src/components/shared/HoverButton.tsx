@@ -1,11 +1,16 @@
 import { Component } from "react";
 
-class HoverButton extends Component {
+interface Props {
+    canFieldBeRemoved?: boolean;
+}
+
+class HoverButton extends Component<Props> {
     render() {
+        const { canFieldBeRemoved = true } = this.props;
         return (
             <div className='absolute flex gap-2 z-10 h-12 bottom-0 transform -translate-x-1/2 translate-y-12 left-1/2'>
                 <InsertButton />
-                <DeleteButton />
+                {canFieldBeRemoved && <DeleteButton />}
             </div>
         );
     }
