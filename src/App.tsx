@@ -177,6 +177,8 @@ function checkForEmptyField(stateKeys: [string, string], value: string) {
         value === ""
     ) {
         return "Your name here";
+    } else if (value === "") {
+        return "Write here";
     }
     return value;
 }
