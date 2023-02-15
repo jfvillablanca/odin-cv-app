@@ -133,6 +133,21 @@ class App extends Component<{}, State> {
         }
     };
 
+    handleOnClickDeleteField = (dataName: string) => {
+        const stateKeys = dataName.split("|") as [
+            string,
+            string,
+            string?,
+            string?
+        ];
+        const [key1, key2, key3 = "", key4 = ""] = stateKeys;
+        this.setState((prevState) => {
+            const updatedState = { ...prevState };
+            delete updatedState[key1][key2];
+            return updatedState;
+        });
+    }
+
     toggleDocumentMode = () => {
         this.setState((prevState) => {
             return {
