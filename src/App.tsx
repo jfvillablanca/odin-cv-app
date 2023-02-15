@@ -5,6 +5,7 @@ import A4 from "./components/A4";
 import Block from "./components/Block";
 import BlockContainer from "./components/BlockContainer";
 import Header from "./components/Header/Header";
+import ModifyButton from "./components/ModifyButton";
 
 interface Field {
     id: string;
