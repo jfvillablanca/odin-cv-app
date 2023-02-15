@@ -45,8 +45,8 @@ class FullName extends Component<Props> {
                 />
                 {hoverButton}
             </div>
-        )
+        );
     }
 }
 
-export default FullName
+export default FullName;
