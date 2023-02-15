@@ -91,7 +91,7 @@ class App extends Component<{}, State> {
         });
     };
 
-    handleOnClick = (dataName: string) => {
+    handleOnClickFormField = (dataName: string) => {
         if (this.state.documentMode === "field") {
             this.setState({
                 editMode: true,
@@ -100,7 +100,7 @@ class App extends Component<{}, State> {
         }
     };
 
-    handleOnBlur = (dataName: string) => {
+    handleOnBlurFormField = (dataName: string) => {
         if (this.state.currentTarget === dataName) {
             this.setState({
                 editMode: false,
@@ -125,8 +125,8 @@ class App extends Component<{}, State> {
                     <Header
                         isEditMode={this.state.editMode}
                         documentMode={this.state.documentMode}
-                        handleOnClick={this.handleOnClick}
-                        handleOnBlur={this.handleOnBlur}
+                        handleOnClickFormField={this.handleOnClickFormField}
+                        handleOnBlurFormField={this.handleOnBlurFormField}
                         activeField={this.state.currentTarget}
                         handleFormInput={this.handleFormInput}
                         headerFields={this.state.headerFields}
