@@ -17,7 +17,7 @@ interface State {
 
 class HeaderSubfields extends Component<Props, State> {
     state = {
-        isHovered: [false, false, false],
+        isHovered: new Array(this.props.subfields.length).fill(false),
     };
 
     handleMouseEnter = (index: number) => {
