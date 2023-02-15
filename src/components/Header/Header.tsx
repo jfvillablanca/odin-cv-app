@@ -1,5 +1,4 @@
 import { Component } from "react";
-import Field from "../shared/Field";
 import HoverButton from "../shared/HoverButton";
 import FullName from "./FullName";
 import HeaderSubfields from "./HeaderSubfields";
@@ -21,7 +20,7 @@ interface Props {
 class Header extends Component<Props> {
     render() {
         const hoverColor = {
-            blue: 'hover:bg-blue-100',
+            blue: "hover:bg-blue-100",
         };
         const isEditMode = this.props.isEditMode;
         const activeField = this.props.activeField;
@@ -39,7 +38,7 @@ class Header extends Component<Props> {
         return (
             <div className='Section grid w-full mb-9'>
                 <div className='flex flex-col'>
-                    <FullName 
+                    <FullName
                         hoverColor={hoverColor.blue}
                         isEditMode={isEditMode}
                         handleOnClick={handleOnClick}
@@ -64,7 +63,7 @@ class Header extends Component<Props> {
                         </Statement>
                     )}
                     {subfields.length !== 0 && (
-                        <HeaderSubfields 
+                        <HeaderSubfields
                             hoverColor={hoverColor.blue}
                             isEditMode={isEditMode}
                             handleOnClick={handleOnClick}
