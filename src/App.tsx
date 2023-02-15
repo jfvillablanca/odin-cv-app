@@ -51,6 +51,14 @@ const templateState: State = {
 
 class App extends Component<{}, State> {
     state: State = templateState;
+    componentDidMount() {
+        const storedStateValue = localStorage.getItem("CV_state");
+        if (storedStateValue) {
+            this.setState(JSON.parse(storedStateValue));
+        } else {
+            this.setState(templateState);
+        }
+    }
 
     blockTemplate: BlockValues = {
         blockHeading: "Experience",
