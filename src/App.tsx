@@ -121,7 +121,7 @@ class App extends Component<{}, State> {
     render() {
         return (
             <div className='App bg-gray-500 py-14 px-10'>
-                <A4>
+                <A4 documentMode={this.state.documentMode}>
                     <Header
                         isEditMode={this.state.editMode}
                         handleOnClick={this.handleOnClick}
