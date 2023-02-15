@@ -1,15 +1,35 @@
 import { Component } from "react";
 
-class HoverButton extends Component {
+interface Props {
+    canFieldBeRemoved?: boolean;
+}
+
+class HoverButton extends Component<Props> {
     render() {
-        const field = 'field';
-        return(
-            <div className="absolute z-10 h-12 bottom-0 transform -translate-x-1/2 translate-y-12 left-1/2">
-                <div className="border-b-2 border-gray-500"></div>
-                <button className="bg-zinc-50 border-gray-500 text-gray-500 opacity-80 text-lg border-2 rounded-2xl py-1 px-4 uppercase">{`New ${field}`}</button>
+        const { canFieldBeRemoved = true } = this.props;
+        return (
+            <div className='absolute flex gap-2 z-10 h-12 bottom-0 transform -translate-x-1/2 translate-y-12 left-1/2'>
+                <InsertButton />
+                {canFieldBeRemoved && <DeleteButton />}
             </div>
-        )
+        );
     }
 }
 
-export default HoverButton
+class InsertButton extends Component {
+    render() {
+        return (
+            <button className='bg-zinc-50 border-2 border-green-500 text-green-500 hover:bg-green-500 hover:text-zinc-50 hover:border-green-500 opacity-80 text-lg rounded-2xl py-1 px-4 uppercase'>{`Insert below`}</button>
+        );
+    }
+}
+
+class DeleteButton extends Component {
+    render() {
+        return (
+            <button className='bg-zinc-50 border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-zinc-50 hover:border-red-500 opacity-80 text-lg rounded-2xl py-1 px-4 uppercase'>{`Delete field`}</button>
+        );
+    }
+}
+
+export default HoverButton;

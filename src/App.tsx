@@ -5,6 +5,7 @@ import A4 from "./components/A4";
 import Block from "./components/Block";
 import BlockContainer from "./components/BlockContainer";
 import Header from "./components/Header/Header";
+import ModifyButton from "./components/ModifyButton";
 
 interface Field {
     id: string;
@@ -26,6 +27,7 @@ interface BlockValues {
 
 interface State {
     editMode: boolean;
+    documentMode: "section" | "field";
     currentTarget: string | null;
     headerFields: HeaderValues;
     [key: string]: any;
@@ -34,6 +36,7 @@ interface State {
 class App extends Component<{}, State> {
     state: State = {
         editMode: false,
+        documentMode: "field",
         currentTarget: null,
         headerFields: {
             fullName: "Lorem Ipsum",
@@ -89,10 +92,12 @@ class App extends Component<{}, State> {
     };
 
     handleOnClick = (dataName: string) => {
-        this.setState({
-            editMode: true,
-            currentTarget: dataName,
-        });
+        if (this.state.documentMode === "field") {
+            this.setState({
+                editMode: true,
+                currentTarget: dataName,
+            });
+        }
     };
 
     handleOnBlur = (dataName: string) => {
@@ -104,12 +109,22 @@ class App extends Component<{}, State> {
         }
     };
 
+    toggleDocumentMode = () => {
+        this.setState((prevState) => {
+            return {
+                documentMode:
+                    prevState.documentMode === "section" ? "field" : "section",
+            };
+        });
+    };
+
     render() {
         return (
             <div className='App bg-gray-500 py-14 px-10'>
-                <A4>
+                <A4 documentMode={this.state.documentMode}>
                     <Header
                         isEditMode={this.state.editMode}
+                        documentMode={this.state.documentMode}
                         handleOnClick={this.handleOnClick}
                         handleOnBlur={this.handleOnBlur}
                         activeField={this.state.currentTarget}
@@ -121,6 +136,10 @@ class App extends Component<{}, State> {
                             blockValues={this.blockTemplate}
                         />
                     </BlockContainer>
+                    <ModifyButton
+                        documentMode={this.state.documentMode}
+                        toggleDocumentMode={this.toggleDocumentMode}
+                    />
                 </A4>
             </div>
         );

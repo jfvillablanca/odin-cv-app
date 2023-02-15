@@ -11,8 +11,31 @@ interface Props {
     subfields: Array<[string, string, string]>;
     children?: React.ReactNode;
 }
+interface State {
+    isHovered: boolean[];
+}
 
-class HeaderSubfields extends Component<Props> {
+class HeaderSubfields extends Component<Props, State> {
+    state = {
+        isHovered: new Array(this.props.subfields.length).fill(false),
+    };
+
+    handleMouseEnter = (index: number) => {
+        this.setState((prevState) => {
+            const isHovered = [...prevState.isHovered];
+            isHovered[index] = true;
+            return { isHovered };
+        });
+    };
+
+    handleMouseLeave = (index: number) => {
+        this.setState((prevState) => {
+            const isHovered = [...prevState.isHovered];
+            isHovered[index] = false;
+            return { isHovered };
+        });
+    };
+
     render() {
         const hoverButton = this.props.children;
         const hoverColor = this.props.hoverColor;
@@ -33,7 +56,11 @@ class HeaderSubfields extends Component<Props> {
             return (
                 <div
                     key={subfield[0]}
-                    className={`relative flex justify-between py-3 uppercase text-lg tracking-wider font-extrabold ${!isEditMode ? `${hoverColor}`: ''}`}
+                    className={`relative flex justify-between py-3 uppercase text-lg tracking-wider font-extrabold ${
+                        !isEditMode ? `${hoverColor}` : ""
+                    }`}
+                    onMouseEnter={() => this.handleMouseEnter(index)}
+                    onMouseLeave={() => this.handleMouseLeave(index)}
                 >
                     <Field
                         tag={"h3"}
@@ -57,17 +84,17 @@ class HeaderSubfields extends Component<Props> {
                         handleFormInput={handleFormInput}
                         activeField={activeField}
                     />
-                    {hoverButton}
+                    {this.state.isHovered[index] && hoverButton}
                 </div>
             );
         });
 
-        return(
-            <div className='flex flex-col border-t-2 border-b-2 border-gray-500 divide-y-2 divide-gray-500'>
+        return (
+            <div className='flex flex-col border-t-2 border-b-2 border-gray-400 divide-y-2 divide-gray-400'>
                 {headerSubFields}
             </div>
-        )
+        );
     }
 }
 
-export default HeaderSubfields
+export default HeaderSubfields;

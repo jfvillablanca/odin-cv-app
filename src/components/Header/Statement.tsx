@@ -13,6 +13,18 @@ interface Props {
 }
 
 class Statement extends Component<Props> {
+    state = {
+        isHovered: false,
+    };
+
+    handleMouseEnter = () => {
+        this.setState({ isHovered: true });
+    };
+
+    handleMouseLeave = () => {
+        this.setState({ isHovered: false });
+    };
+
     render() {
         const hoverButton = this.props.children;
         const hoverColor = this.props.hoverColor;
@@ -28,12 +40,16 @@ class Statement extends Component<Props> {
         const handleFormInput = this.props.handleFormInput as (
             event: React.SyntheticEvent
         ) => void;
-        return(
-            <div className={!isEditMode ? `${hoverColor} relative`: 'relative'}>
+        return (
+            <div
+                className={!isEditMode ? `${hoverColor} relative` : "relative"}
+                onMouseEnter={this.handleMouseEnter}
+                onMouseLeave={this.handleMouseLeave}
+            >
                 <Field
                     tag={"p"}
                     isEditMode={isEditMode}
-                    className='w-full text-gray-600 mb-6'
+                    className='w-full mb-6'
                     dataName={"headerFields|statement"}
                     textContent={statement}
                     handleOnClick={handleOnClick}
@@ -41,10 +57,10 @@ class Statement extends Component<Props> {
                     handleFormInput={handleFormInput}
                     activeField={activeField}
                 />
-                {hoverButton}
+                {this.state.isHovered && hoverButton}
             </div>
-        )
+        );
     }
 }
 
-export default Statement
+export default Statement;

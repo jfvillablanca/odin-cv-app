@@ -13,6 +13,18 @@ interface Props {
 }
 
 class FullName extends Component<Props> {
+    state = {
+        isHovered: false,
+    };
+
+    handleMouseEnter = () => {
+        this.setState({ isHovered: true });
+    };
+
+    handleMouseLeave = () => {
+        this.setState({ isHovered: false });
+    };
+
     render() {
         const hoverButton = this.props.children;
         const hoverColor = this.props.hoverColor;
@@ -31,6 +43,8 @@ class FullName extends Component<Props> {
         return (
             <div
                 className={!isEditMode ? `${hoverColor} relative` : "relative"}
+                onMouseEnter={this.handleMouseEnter}
+                onMouseLeave={this.handleMouseLeave}
             >
                 <Field
                     tag={"h1"}
@@ -43,7 +57,7 @@ class FullName extends Component<Props> {
                     handleFormInput={handleFormInput}
                     activeField={activeField}
                 />
-                {hoverButton}
+                {this.state.isHovered && hoverButton}
             </div>
         );
     }

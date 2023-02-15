@@ -1,16 +1,16 @@
 import { Component } from "react";
-import Field from "../shared/Field";
 import HoverButton from "../shared/HoverButton";
 import FullName from "./FullName";
 import HeaderSubfields from "./HeaderSubfields";
 import Statement from "./Statement";
 
-interface HeaderProps {
+interface Props {
     isEditMode: boolean;
     handleOnClick: Function;
     handleOnBlur: Function;
     handleFormInput: Function;
     activeField: string | null;
+    documentMode: "section" | "field";
     headerFields: {
         fullName: string;
         statement?: string;
@@ -18,11 +18,12 @@ interface HeaderProps {
     };
 }
 
-class Header extends Component<HeaderProps> {
+class Header extends Component<Props> {
     render() {
         const hoverColor = {
-            blue: 'hover:bg-blue-100',
+            blue: "hover:bg-blue-100",
         };
+        const documentMode = this.props.documentMode;
         const isEditMode = this.props.isEditMode;
         const activeField = this.props.activeField;
         const handleOnClick = this.props.handleOnClick as (
@@ -39,7 +40,7 @@ class Header extends Component<HeaderProps> {
         return (
             <div className='Section grid w-full mb-9'>
                 <div className='flex flex-col'>
-                    <FullName 
+                    <FullName
                         hoverColor={hoverColor.blue}
                         isEditMode={isEditMode}
                         handleOnClick={handleOnClick}
@@ -48,7 +49,9 @@ class Header extends Component<HeaderProps> {
                         activeField={activeField}
                         fullName={fullName}
                     >
-                        <HoverButton />
+                        {documentMode === "section" && (
+                            <HoverButton canFieldBeRemoved={false} />
+                        )}
                     </FullName>
                     {!!statement && (
                         <Statement
@@ -60,11 +63,11 @@ class Header extends Component<HeaderProps> {
                             activeField={activeField}
                             statement={statement}
                         >
-                            <HoverButton />
+                            {documentMode === "section" && <HoverButton />}
                         </Statement>
                     )}
                     {subfields.length !== 0 && (
-                        <HeaderSubfields 
+                        <HeaderSubfields
                             hoverColor={hoverColor.blue}
                             isEditMode={isEditMode}
                             handleOnClick={handleOnClick}
@@ -73,7 +76,7 @@ class Header extends Component<HeaderProps> {
                             activeField={activeField}
                             subfields={subfields}
                         >
-                            <HoverButton />
+                            {documentMode === "section" && <HoverButton />}
                         </HeaderSubfields>
                     )}
                 </div>
