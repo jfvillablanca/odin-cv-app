@@ -132,7 +132,10 @@ class App extends Component<{}, State> {
                             blockValues={this.blockTemplate}
                         />
                     </BlockContainer>
-                    <ModifyButton documentMode={this.state.documentMode} />
+                    <ModifyButton
+                        documentMode={this.state.documentMode}
+                        toggleDocumentMode={this.toggleDocumentMode}
+                    />
                 </A4>
             </div>
         );
