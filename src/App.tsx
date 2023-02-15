@@ -68,6 +68,12 @@ class App extends Component<{}, State> {
         }
     }
 
+    componentDidUpdate(_: {}, prevState: State) {
+        if (prevState !== this.state) {
+            localStorage.setItem("CV_state", JSON.stringify(this.state));
+        }
+    }
+
     blockTemplate: BlockValues = {
         blockHeading: "Experience",
         blockFields: [
