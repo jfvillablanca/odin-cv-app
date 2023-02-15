@@ -5,7 +5,7 @@ import FullName from "./FullName";
 import HeaderSubfields from "./HeaderSubfields";
 import Statement from "./Statement";
 
-interface HeaderProps {
+interface Props {
     isEditMode: boolean;
     handleOnClick: Function;
     handleOnBlur: Function;
@@ -18,7 +18,7 @@ interface HeaderProps {
     };
 }
 
-class Header extends Component<HeaderProps> {
+class Header extends Component<Props> {
     render() {
         const hoverColor = {
             blue: 'hover:bg-blue-100',
