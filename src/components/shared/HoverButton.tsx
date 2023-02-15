@@ -18,4 +18,12 @@ class InsertButton extends Component {
     }
 }
 
+class DeleteButton extends Component {
+    render() {
+        return (
+            <button className='bg-zinc-50 border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-zinc-50 hover:border-red-500 opacity-80 text-lg rounded-2xl py-1 px-4 uppercase'>{`Delete field`}</button>
+        );
+    }
+}
+
 export default HoverButton;
