@@ -2,6 +2,7 @@ import { Component } from "react";
 import Field from "../shared/Field";
 
 interface Props {
+    hoverColor: string;
     isEditMode: boolean;
     handleOnClick: Function;
     handleOnBlur: Function;
@@ -12,9 +13,7 @@ interface Props {
 
 class FullName extends Component<Props> {
     render() {
-        const hoverColor = {
-            blue: 'hover:bg-blue-100',
-        };
+        const hoverColor = this.props.hoverColor;
         const isEditMode = this.props.isEditMode;
         const activeField = this.props.activeField;
         const fullName = this.props.fullName;
@@ -28,7 +27,7 @@ class FullName extends Component<Props> {
             event: React.SyntheticEvent
         ) => void;
         return(
-            <div className={!isEditMode ? `${hoverColor.blue}`: ''}>
+            <div className={!isEditMode ? `${hoverColor}`: ''}>
                 <Field
                     tag={"h1"}
                     isEditMode={isEditMode}
