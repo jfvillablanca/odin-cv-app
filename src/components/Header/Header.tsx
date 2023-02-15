@@ -1,6 +1,7 @@
 import { Component } from "react";
 import Field from "../shared/Field";
 import HoverButton from "../shared/HoverButton";
+import FullName from "./FullName";
 
 interface HeaderProps {
     isEditMode: boolean;
@@ -67,19 +68,15 @@ class Header extends Component<HeaderProps> {
         return (
             <div className='Section grid w-full mb-9'>
                 <div className='flex flex-col'>
-                    <div className={!isEditMode ? `${hoverColor.blue}`: ''}>
-                        <Field
-                            tag={"h1"}
-                            isEditMode={isEditMode}
-                            className='w-full font-semibold text-3xl mb-6'
-                            dataName={"headerFields|fullName"}
-                            textContent={fullName}
-                            handleOnClick={handleOnClick}
-                            handleOnBlur={handleOnBlur}
-                            handleFormInput={handleFormInput}
-                            activeField={activeField}
-                        />
-                    </div>
+                    <FullName 
+                        hoverColor={hoverColor.blue}
+                        isEditMode={isEditMode}
+                        handleOnClick={handleOnClick}
+                        handleOnBlur={handleOnBlur}
+                        handleFormInput={handleFormInput}
+                        activeField={activeField}
+                        fullName={fullName}
+                    />
                     {!!statement && (
                         <div className={!isEditMode ? `relative ${hoverColor.blue}`: 'relative'}>
                         <HoverButton />
