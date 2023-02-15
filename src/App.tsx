@@ -33,8 +33,7 @@ interface State {
     [key: string]: any;
 }
 
-class App extends Component<{}, State> {
-    state: State = {
+const templateState: State = {
         editMode: false,
         documentMode: "field",
         currentTarget: null,
@@ -48,7 +47,10 @@ class App extends Component<{}, State> {
                 [nanoid(), "email", "email@email.com"],
             ],
         } as HeaderValues,
-    };
+}
+
+class App extends Component<{}, State> {
+    state: State = templateState;
 
     blockTemplate: BlockValues = {
         blockHeading: "Experience",
