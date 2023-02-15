@@ -43,8 +43,8 @@ class Statement extends Component<Props> {
                 />
                 {hoverButton}
             </div>
-        )
+        );
     }
 }
 
-export default Statement
+export default Statement;
