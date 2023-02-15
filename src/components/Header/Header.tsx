@@ -10,6 +10,7 @@ interface Props {
     handleOnBlur: Function;
     handleFormInput: Function;
     activeField: string | null;
+    documentMode: "section" | "field";
     headerFields: {
         fullName: string;
         statement?: string;
@@ -22,6 +23,7 @@ class Header extends Component<Props> {
         const hoverColor = {
             blue: "hover:bg-blue-100",
         };
+        const documentMode = this.props.documentMode;
         const isEditMode = this.props.isEditMode;
         const activeField = this.props.activeField;
         const handleOnClick = this.props.handleOnClick as (
@@ -47,7 +49,9 @@ class Header extends Component<Props> {
                         activeField={activeField}
                         fullName={fullName}
                     >
-                        <HoverButton />
+                        {documentMode === "section" && (
+                            <HoverButton canFieldBeRemoved={false} />
+                        )}
                     </FullName>
                     {!!statement && (
                         <Statement
@@ -59,7 +63,7 @@ class Header extends Component<Props> {
                             activeField={activeField}
                             statement={statement}
                         >
-                            <HoverButton />
+                            {documentMode === "section" && <HoverButton />}
                         </Statement>
                     )}
                     {subfields.length !== 0 && (
@@ -72,7 +76,7 @@ class Header extends Component<Props> {
                             activeField={activeField}
                             subfields={subfields}
                         >
-                            <HoverButton />
+                            {documentMode === "section" && <HoverButton />}
                         </HeaderSubfields>
                     )}
                 </div>
