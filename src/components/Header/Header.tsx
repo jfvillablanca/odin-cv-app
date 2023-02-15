@@ -6,8 +6,8 @@ import Statement from "./Statement";
 
 interface Props {
     isEditMode: boolean;
-    handleOnClick: Function;
-    handleOnBlur: Function;
+    handleOnClickFormField: Function;
+    handleOnBlurFormField: Function;
     handleFormInput: Function;
     activeField: string | null;
     documentMode: "section" | "field";
@@ -26,10 +26,10 @@ class Header extends Component<Props> {
         const documentMode = this.props.documentMode;
         const isEditMode = this.props.isEditMode;
         const activeField = this.props.activeField;
-        const handleOnClick = this.props.handleOnClick as (
+        const handleOnClickFormField = this.props.handleOnClickFormField as (
             dataName: string
         ) => void;
-        const handleOnBlur = this.props.handleOnBlur as (
+        const handleOnBlurFormField = this.props.handleOnBlurFormField as (
             dataName: string
         ) => void;
         const handleFormInput = this.props.handleFormInput as (
@@ -43,8 +43,8 @@ class Header extends Component<Props> {
                     <FullName
                         hoverColor={hoverColor.blue}
                         isEditMode={isEditMode}
-                        handleOnClick={handleOnClick}
-                        handleOnBlur={handleOnBlur}
+                        handleOnClick={handleOnClickFormField}
+                        handleOnBlur={handleOnBlurFormField}
                         handleFormInput={handleFormInput}
                         activeField={activeField}
                         fullName={fullName}
@@ -57,8 +57,8 @@ class Header extends Component<Props> {
                         <Statement
                             hoverColor={hoverColor.blue}
                             isEditMode={isEditMode}
-                            handleOnClick={handleOnClick}
-                            handleOnBlur={handleOnBlur}
+                            handleOnClick={handleOnClickFormField}
+                            handleOnBlur={handleOnBlurFormField}
                             handleFormInput={handleFormInput}
                             activeField={activeField}
                             statement={statement}
@@ -70,8 +70,8 @@ class Header extends Component<Props> {
                         <HeaderSubfields
                             hoverColor={hoverColor.blue}
                             isEditMode={isEditMode}
-                            handleOnClick={handleOnClick}
-                            handleOnBlur={handleOnBlur}
+                            handleOnClick={handleOnClickFormField}
+                            handleOnBlur={handleOnBlurFormField}
                             handleFormInput={handleFormInput}
                             activeField={activeField}
                             subfields={subfields}

@@ -33,22 +33,46 @@ interface State {
     [key: string]: any;
 }
 
+const templateState: State = {
+    editMode: false,
+    documentMode: "field",
+    currentTarget: null,
+    headerFields: {
+        fullName: "Lorem Ipsum",
+        statement:
+            "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi.",
+        subfields: [
+            [nanoid(), "profession", "professor"],
+            [nanoid(), "phone", "696969"],
+            [nanoid(), "email", "email@email.com"],
+        ],
+    } as HeaderValues,
+};
+
 class App extends Component<{}, State> {
     state: State = {
         editMode: false,
         documentMode: "field",
         currentTarget: null,
         headerFields: {
-            fullName: "Lorem Ipsum",
-            statement:
-                "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi.",
-            subfields: [
-                [nanoid(), "profession", "professor"],
-                [nanoid(), "phone", "696969"],
-                [nanoid(), "email", "email@email.com"],
-            ],
-        } as HeaderValues,
+            fullName: "Your name here",
+        },
     };
+
+    componentDidMount() {
+        const storedStateValue = localStorage.getItem("CV_state");
+        if (storedStateValue) {
+            this.setState(JSON.parse(storedStateValue));
+        } else {
+            this.setState(templateState);
+        }
+    }
+
+    componentDidUpdate(_: {}, prevState: State) {
+        if (prevState !== this.state) {
+            localStorage.setItem("CV_state", JSON.stringify(this.state));
+        }
+    }
 
     blockTemplate: BlockValues = {
         blockHeading: "Experience",
@@ -91,7 +115,7 @@ class App extends Component<{}, State> {
         });
     };
 
-    handleOnClick = (dataName: string) => {
+    handleOnClickFormField = (dataName: string) => {
         if (this.state.documentMode === "field") {
             this.setState({
                 editMode: true,
@@ -100,7 +124,7 @@ class App extends Component<{}, State> {
         }
     };
 
-    handleOnBlur = (dataName: string) => {
+    handleOnBlurFormField = (dataName: string) => {
         if (this.state.currentTarget === dataName) {
             this.setState({
                 editMode: false,
@@ -108,6 +132,21 @@ class App extends Component<{}, State> {
             });
         }
     };
+
+    handleOnClickDeleteField = (dataName: string) => {
+        const stateKeys = dataName.split("|") as [
+            string,
+            string,
+            string?,
+            string?
+        ];
+        const [key1, key2, key3 = "", key4 = ""] = stateKeys;
+        this.setState((prevState) => {
+            const updatedState = { ...prevState };
+            delete updatedState[key1][key2];
+            return updatedState;
+        });
+    }
 
     toggleDocumentMode = () => {
         this.setState((prevState) => {
@@ -125,8 +164,8 @@ class App extends Component<{}, State> {
                     <Header
                         isEditMode={this.state.editMode}
                         documentMode={this.state.documentMode}
-                        handleOnClick={this.handleOnClick}
-                        handleOnBlur={this.handleOnBlur}
+                        handleOnClickFormField={this.handleOnClickFormField}
+                        handleOnBlurFormField={this.handleOnBlurFormField}
                         activeField={this.state.currentTarget}
                         handleFormInput={this.handleFormInput}
                         headerFields={this.state.headerFields}
@@ -153,6 +192,8 @@ function checkForEmptyField(stateKeys: [string, string], value: string) {
         value === ""
     ) {
         return "Your name here";
+    } else if (value === "") {
+        return "Write here";
     }
     return value;
 }
