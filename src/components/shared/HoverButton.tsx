@@ -12,9 +12,8 @@ class HoverButton extends Component {
 
 class InsertButton extends Component {
     render() {
-        const field = "field";
         return (
-            <button className='bg-zinc-50 border-gray-500 text-gray-500 opacity-80 text-lg border-2 rounded-2xl py-1 px-4 uppercase'>{`Insert ${field} below`}</button>
+            <button className='bg-zinc-50 border-2 border-green-500 text-green-500 hover:bg-green-500 hover:text-zinc-50 hover:border-green-500 opacity-80 text-lg rounded-2xl py-1 px-4 uppercase'>{`Insert below`}</button>
         );
     }
 }
