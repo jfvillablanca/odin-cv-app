@@ -26,8 +26,10 @@ class FullName extends Component<Props> {
         const handleFormInput = this.props.handleFormInput as (
             event: React.SyntheticEvent
         ) => void;
-        return(
-            <div className={!isEditMode ? `${hoverColor}`: ''}>
+        return (
+            <div
+                className={!isEditMode ? `${hoverColor} relative` : "relative"}
+            >
                 <Field
                     tag={"h1"}
                     isEditMode={isEditMode}
