@@ -16,6 +16,26 @@ interface State {
 }
 
 class HeaderSubfields extends Component<Props, State> {
+    state = {
+        isHovered: [false, false, false],
+    };
+
+    handleMouseEnter = (index: number) => {
+        this.setState((prevState) => {
+            const isHovered = [...prevState.isHovered];
+            isHovered[index] = true;
+            return { isHovered };
+        });
+    };
+
+    handleMouseLeave = (index: number) => {
+        this.setState((prevState) => {
+            const isHovered = [...prevState.isHovered];
+            isHovered[index] = false;
+            return { isHovered };
+        });
+    };
+
     render() {
         const hoverButton = this.props.children;
         const hoverColor = this.props.hoverColor;
@@ -36,7 +56,11 @@ class HeaderSubfields extends Component<Props, State> {
             return (
                 <div
                     key={subfield[0]}
-                    className={`relative flex justify-between py-3 uppercase text-lg tracking-wider font-extrabold ${!isEditMode ? `${hoverColor}`: ''}`}
+                    className={`relative flex justify-between py-3 uppercase text-lg tracking-wider font-extrabold ${
+                        !isEditMode ? `${hoverColor}` : ""
+                    }`}
+                    onMouseEnter={() => this.handleMouseEnter(index)}
+                    onMouseLeave={() => this.handleMouseLeave(index)}
                 >
                     <Field
                         tag={"h3"}
@@ -60,7 +84,7 @@ class HeaderSubfields extends Component<Props, State> {
                         handleFormInput={handleFormInput}
                         activeField={activeField}
                     />
-                    {hoverButton}
+                    {this.state.isHovered[index] && hoverButton}
                 </div>
             );
         });
