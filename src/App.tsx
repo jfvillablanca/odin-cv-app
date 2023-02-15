@@ -34,23 +34,31 @@ interface State {
 }
 
 const templateState: State = {
+    editMode: false,
+    documentMode: "field",
+    currentTarget: null,
+    headerFields: {
+        fullName: "Lorem Ipsum",
+        statement:
+            "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi.",
+        subfields: [
+            [nanoid(), "profession", "professor"],
+            [nanoid(), "phone", "696969"],
+            [nanoid(), "email", "email@email.com"],
+        ],
+    } as HeaderValues,
+};
+
+class App extends Component<{}, State> {
+    state: State = {
         editMode: false,
         documentMode: "field",
         currentTarget: null,
         headerFields: {
-            fullName: "Lorem Ipsum",
-            statement:
-                "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi.",
-            subfields: [
-                [nanoid(), "profession", "professor"],
-                [nanoid(), "phone", "696969"],
-                [nanoid(), "email", "email@email.com"],
-            ],
-        } as HeaderValues,
-}
+            fullName: "Your name here",
+        },
+    };
 
-class App extends Component<{}, State> {
-    state: State = templateState;
     componentDidMount() {
         const storedStateValue = localStorage.getItem("CV_state");
         if (storedStateValue) {
