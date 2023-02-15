@@ -106,6 +106,15 @@ class App extends Component<{}, State> {
         }
     };
 
+    toggleDocumentMode = () => {
+        this.setState((prevState) => {
+            return {
+                documentMode:
+                    prevState.documentMode === "section" ? "field" : "section",
+            };
+        });
+    };
+
     render() {
         return (
             <div className='App bg-gray-500 py-14 px-10'>
