@@ -14,7 +14,7 @@ interface Props {
 
 class FullName extends Component<Props> {
     state = {
-        isHovered: true,
+        isHovered: false,
     };
 
     handleMouseEnter = () => {
