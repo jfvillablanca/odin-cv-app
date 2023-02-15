@@ -9,10 +9,12 @@ interface Props {
     handleFormInput: Function;
     activeField: string | null;
     fullName: string;
+    children?: React.ReactNode;
 }
 
 class FullName extends Component<Props> {
     render() {
+        const hoverButton = this.props.children;
         const hoverColor = this.props.hoverColor;
         const isEditMode = this.props.isEditMode;
         const activeField = this.props.activeField;
@@ -41,6 +43,7 @@ class FullName extends Component<Props> {
                     handleFormInput={handleFormInput}
                     activeField={activeField}
                 />
+                {hoverButton}
             </div>
         )
     }
