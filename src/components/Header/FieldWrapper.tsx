@@ -11,7 +11,7 @@ interface Props {
     children?: React.ReactNode;
 }
 
-const FullName: FC<Props> = ({ tag, tailwindStyles: tailwindStyles, hoverColor, dataName, textContent: fullName, children }) => {
+const FullName: FC<Props> = ({ tag, tailwindStyles, hoverColor, dataName, textContent, children }) => {
     const [isHovered, setIsHovered] = useState(false);
 
     const handleMouseEnter = () => {
@@ -35,7 +35,7 @@ const FullName: FC<Props> = ({ tag, tailwindStyles: tailwindStyles, hoverColor, 
                 tag={tag}
                 className={tailwindStyles}
                 dataName={dataName}
-                textContent={fullName}
+                textContent={textContent}
             />
             {isHovered && hoverButton}
         </div>
