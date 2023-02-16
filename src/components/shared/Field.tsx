@@ -1,69 +1,55 @@
-import React, { Component } from "react";
+import { FC, useContext } from "react";
+import { AppContext } from "../shared/AppContext";
 
 interface Props {
     tag: keyof JSX.IntrinsicElements;
-    isEditMode: boolean;
     className: string;
     dataName: string;
     textContent: string;
-    handleOnClick: (dataName: string) => void;
-    handleOnBlur: (dataName: string) => void;
-    activeField: string | null;
-    handleFormInput: (event: React.SyntheticEvent) => void;
 }
 
-class Field extends Component<Props> {
-    render() {
-        const {
-            tag,
-            isEditMode,
-            className,
-            dataName,
-            textContent,
-            handleOnClick,
-            handleOnBlur,
-            handleFormInput,
-            activeField,
-        } = this.props;
+const Field: FC<Props> = ({ tag, className, dataName, textContent }) => {
+    const { editMode, currentTarget } = useContext(AppContext).state;
+    const { handleOnClickFormField, handleOnBlurFormField, handleFormInput } =
+        useContext(AppContext);
 
-        const Tag = tag;
-        if (!isEditMode || activeField !== dataName) {
-            return (
-                <Tag
-                    className={className}
-                    onClick={() => handleOnClick(dataName)}
-                    data-name={dataName}
-                >
-                    {textContent}
-                </Tag>
-            );
-        } else {
-            switch (Tag) {
-                case "p":
+    const Tag = tag;
+    if (!editMode || currentTarget !== dataName) {
+        return (
+            <Tag
+                className={className}
+                onClick={() => handleOnClickFormField(dataName)}
+                data-name={dataName}
+            >
+                {textContent}
+            </Tag>
+        );
+    } else {
+        switch (Tag) {
+            case "p":
                 return (
                     <textarea
                         className={className}
                         data-name={dataName}
-                        onBlur={() => handleOnBlur(dataName)}
+                        onBlur={() => handleOnBlurFormField(dataName)}
                         onChange={handleFormInput}
                         value={textContent}
                         autoFocus
                     />
                 );
-                default:
+            default:
                 return (
                     <input
                         className={className}
                         data-name={dataName}
-                        onBlur={() => handleOnBlur(dataName)}
+                        onBlur={() => handleOnBlurFormField(dataName)}
                         onChange={handleFormInput}
                         value={textContent}
                         autoFocus
                     />
                 );
-            }
         }
     }
-}
+};
 
 export default Field;
