@@ -1,11 +1,12 @@
 import { nanoid } from "nanoid";
-import { Component } from "react";
+import { Component, createContext } from "react";
 import "./App.scss";
 import A4 from "./components/A4";
 import Block from "./components/Block";
 import BlockContainer from "./components/BlockContainer";
 import Header from "./components/Header/Header";
 import ModifyButton from "./components/ModifyButton";
+import { AppContext, AppContextType } from "./components/shared/AppContext";
 
 interface Field {
     id: string;
@@ -25,7 +26,7 @@ interface BlockValues {
     blockFields?: Array<Field>;
 }
 
-interface State {
+export interface State {
     editMode: boolean;
     documentMode: "section" | "field";
     currentTarget: string | null;
@@ -158,28 +159,29 @@ class App extends Component<{}, State> {
     };
 
     render() {
+        const context = {
+            state: this.state,
+            handleFormInput: this.handleFormInput,
+            handleOnClickFormField: this.handleOnClickFormField,
+            handleOnBlurFormField: this.handleOnBlurFormField,
+            handleOnClickDeleteField: this.handleOnClickDeleteField,
+            toggleDocumentMode: this.toggleDocumentMode,
+        };
+
         return (
             <div className='App bg-gray-500 py-14 px-10'>
-                <A4 documentMode={this.state.documentMode}>
-                    <Header
-                        isEditMode={this.state.editMode}
-                        documentMode={this.state.documentMode}
-                        handleOnClickFormField={this.handleOnClickFormField}
-                        handleOnBlurFormField={this.handleOnBlurFormField}
-                        activeField={this.state.currentTarget}
-                        handleFormInput={this.handleFormInput}
-                        headerFields={this.state.headerFields}
-                    />
-                    <BlockContainer>
-                        <Block
-                            blockValues={this.blockTemplate}
+                <AppContext.Provider value={context as AppContextType}>
+                    <A4 documentMode={this.state.documentMode}>
+                        <Header
+                            documentMode={this.state.documentMode}
+                            headerFields={this.state.headerFields}
                         />
-                    </BlockContainer>
-                    <ModifyButton
-                        documentMode={this.state.documentMode}
-                        toggleDocumentMode={this.toggleDocumentMode}
-                    />
-                </A4>
+                        <ModifyButton
+                            documentMode={this.state.documentMode}
+                            toggleDocumentMode={this.toggleDocumentMode}
+                        />
+                    </A4>
+                </AppContext.Provider>
             </div>
         );
     }
