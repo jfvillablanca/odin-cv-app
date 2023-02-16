@@ -108,10 +108,10 @@ class App extends Component<{}, State> {
             const updatedState = { ...prevState };
             if (Array.isArray(updatedState[key1][key2])) {
                 const stateArray = updatedState[key1][key2];
-                stateArray[key3 as string][key4 as string] = updatedValue;
+                stateArray[key3][key4] = updatedValue;
                 return stateArray;
             }
-            updatedState[stateKeys[0]][stateKeys[1]] = updatedValue;
+            updatedState[key1][key2] = updatedValue;
             return updatedState;
         });
     };
