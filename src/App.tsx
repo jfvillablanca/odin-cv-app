@@ -142,9 +142,10 @@ class App extends Component<{}, State> {
         this.setState((prevState) => {
             const updatedState = { ...prevState };
             if (Array.isArray(updatedState[key1][key2])) {
-                const stateArray = updatedState[key1][key2];
-                delete stateArray[key3];
-                return stateArray;
+                updatedState[key1][key2] = updatedState[key1][key2].filter(
+                    (subfield: string[]) => subfield[0] !== subfieldId
+                );
+                return updatedState;
             }
             delete updatedState[key1][key2];
             return updatedState;
