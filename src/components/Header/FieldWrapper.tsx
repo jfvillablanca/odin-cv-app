@@ -3,13 +3,15 @@ import { AppContext } from "../shared/AppContext";
 import Field from "../shared/Field";
 
 interface Props {
+    tag: keyof JSX.IntrinsicElements;
+    tailwindStyles: string;
     hoverColor: string;
     dataName: string;
-    fullName: string;
+    textContent: string;
     children?: React.ReactNode;
 }
 
-const FullName: FC<Props> = ({ hoverColor, dataName, fullName, children }) => {
+const FullName: FC<Props> = ({ tag, tailwindStyles: tailwindStyles, hoverColor, dataName, textContent: fullName, children }) => {
     const [isHovered, setIsHovered] = useState(false);
 
     const handleMouseEnter = () => {
@@ -30,8 +32,8 @@ const FullName: FC<Props> = ({ hoverColor, dataName, fullName, children }) => {
             onMouseLeave={handleMouseLeave}
         >
             <Field
-                tag={"h1"}
-                className='w-full font-semibold text-3xl mb-6'
+                tag={tag}
+                className={tailwindStyles}
                 dataName={dataName}
                 textContent={fullName}
             />
