@@ -4,11 +4,6 @@ import FieldWrapper from "./FieldWrapper";
 import HeaderSubfields from "./HeaderSubfields";
 
 interface Props {
-    isEditMode: boolean;
-    handleOnClickFormField: Function;
-    handleOnBlurFormField: Function;
-    handleFormInput: Function;
-    activeField: string | null;
     documentMode: "section" | "field";
     headerFields: {
         fullName: string;
@@ -23,17 +18,6 @@ class Header extends Component<Props> {
             blue: "hover:bg-blue-100",
         };
         const documentMode = this.props.documentMode;
-        const isEditMode = this.props.isEditMode;
-        const activeField = this.props.activeField;
-        const handleOnClickFormField = this.props.handleOnClickFormField as (
-            dataName: string
-        ) => void;
-        const handleOnBlurFormField = this.props.handleOnBlurFormField as (
-            dataName: string
-        ) => void;
-        const handleFormInput = this.props.handleFormInput as (
-            event: React.SyntheticEvent
-        ) => void;
         const { fullName, statement, subfields = [] } = this.props.headerFields;
 
         return (
