@@ -1,4 +1,5 @@
-import { Component } from "react";
+import { AppContext } from '../../App'
+import { Component, useContext } from "react";
 
 interface Props {
     canFieldBeRemoved?: boolean;
@@ -33,22 +34,14 @@ class InsertButton extends Component {
     }
 }
 
-class DeleteButton extends Component<{
-    field: string;
-    handleClick: (dataName: string) => void;
-}> {
-    render() {
-        const handleClick = this.props.handleClick as (
-            dataName: string
-        ) => void;
-        const field = this.props.field;
-        return (
-            <button
-                onClick={() => handleClick(field)}
-                className='bg-zinc-50 border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-zinc-50 hover:border-red-500 opacity-80 text-lg rounded-2xl py-1 px-4 uppercase'
-            >{`Delete field`}</button>
-        );
-    }
+function DeleteButton({ field }: { field: string }) {
+    const { handleOnClickDeleteField } = useContext(AppContext)
+    return (
+        <button
+            onClick={() => handleOnClickDeleteField(field)}
+            className='bg-zinc-50 border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-zinc-50 hover:border-red-500 opacity-80 text-lg rounded-2xl py-1 px-4 uppercase'
+        >{`Delete field`}</button>
+    );
 }
 
 export default HoverButton;
