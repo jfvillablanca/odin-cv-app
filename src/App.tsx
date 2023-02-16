@@ -1,11 +1,29 @@
 import { nanoid } from "nanoid";
-import { Component } from "react";
+import { Component, createContext } from "react";
 import "./App.scss";
 import A4 from "./components/A4";
 import Block from "./components/Block";
 import BlockContainer from "./components/BlockContainer";
 import Header from "./components/Header/Header";
 import ModifyButton from "./components/ModifyButton";
+
+type ContextType = {
+    state: State;
+    handleFormInput: (event: React.SyntheticEvent) => void;
+    handleOnClickFormField: (dataName: string) => void;
+    handleOnBlurFormField: (dataName: string) => void;
+    handleOnClickDeleteField: (dataName: string) => void;
+    toggleDocumentMode: () => void;
+}
+
+export const AppContext = createContext({
+    state: {},
+    handleFormInput: (_: React.SyntheticEvent) => void 0,
+    handleOnClickFormField: (_: string) => void 0,
+    handleOnBlurFormField: (_: string) => void 0,
+    handleOnClickDeleteField: (_: string) => void 0,
+    toggleDocumentMode: () => void 0,
+} as ContextType);
 
 interface Field {
     id: string;
