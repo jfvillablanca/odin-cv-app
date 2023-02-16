@@ -6,24 +6,7 @@ import Block from "./components/Block";
 import BlockContainer from "./components/BlockContainer";
 import Header from "./components/Header/Header";
 import ModifyButton from "./components/ModifyButton";
-
-type ContextType = {
-    state: State;
-    handleFormInput: (event: React.SyntheticEvent) => void;
-    handleOnClickFormField: (dataName: string) => void;
-    handleOnBlurFormField: (dataName: string) => void;
-    handleOnClickDeleteField: (dataName: string) => void;
-    toggleDocumentMode: () => void;
-}
-
-export const AppContext = createContext({
-    state: {},
-    handleFormInput: (_: React.SyntheticEvent) => void 0,
-    handleOnClickFormField: (_: string) => void 0,
-    handleOnBlurFormField: (_: string) => void 0,
-    handleOnClickDeleteField: (_: string) => void 0,
-    toggleDocumentMode: () => void 0,
-} as ContextType);
+import { AppContext, AppContextType } from "./components/shared/AppContext";
 
 interface Field {
     id: string;
@@ -43,7 +26,7 @@ interface BlockValues {
     blockFields?: Array<Field>;
 }
 
-interface State {
+export interface State {
     editMode: boolean;
     documentMode: "section" | "field";
     currentTarget: string | null;
@@ -176,28 +159,29 @@ class App extends Component<{}, State> {
     };
 
     render() {
+        const context = {
+            state: this.state,
+            handleFormInput: this.handleFormInput,
+            handleOnClickFormField: this.handleOnClickFormField,
+            handleOnBlurFormField: this.handleOnBlurFormField,
+            handleOnClickDeleteField: this.handleOnClickDeleteField,
+            toggleDocumentMode: this.toggleDocumentMode,
+        };
+
         return (
             <div className='App bg-gray-500 py-14 px-10'>
-                <A4 documentMode={this.state.documentMode}>
-                    <Header
-                        isEditMode={this.state.editMode}
-                        documentMode={this.state.documentMode}
-                        handleOnClickFormField={this.handleOnClickFormField}
-                        handleOnBlurFormField={this.handleOnBlurFormField}
-                        activeField={this.state.currentTarget}
-                        handleFormInput={this.handleFormInput}
-                        headerFields={this.state.headerFields}
-                    />
-                    <BlockContainer>
-                        <Block
-                            blockValues={this.blockTemplate}
+                <AppContext.Provider value={context as AppContextType}>
+                    <A4 documentMode={this.state.documentMode}>
+                        <Header
+                            documentMode={this.state.documentMode}
+                            headerFields={this.state.headerFields}
                         />
-                    </BlockContainer>
-                    <ModifyButton
-                        documentMode={this.state.documentMode}
-                        toggleDocumentMode={this.toggleDocumentMode}
-                    />
-                </A4>
+                        <ModifyButton
+                            documentMode={this.state.documentMode}
+                            toggleDocumentMode={this.toggleDocumentMode}
+                        />
+                    </A4>
+                </AppContext.Provider>
             </div>
         );
     }
