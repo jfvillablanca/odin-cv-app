@@ -7,7 +7,7 @@ export type AppContextType = {
     handleOnClickFormField: (dataName: string) => void;
     handleOnBlurFormField: (dataName: string) => void;
     handleOnClickDeleteField: (dataName: string) => void;
-    handleOnClickInsertField: () => void;
+    handleOnClickInsertField: (dataName: string) => void;
     toggleDocumentMode: () => void;
 }
 
@@ -17,7 +17,7 @@ export const AppContext = createContext({
     handleOnClickFormField: (_: string) => void 0,
     handleOnBlurFormField: (_: string) => void 0,
     handleOnClickDeleteField: (_: string) => void 0,
-    handleOnClickInsertField: () => void 0,
+    handleOnClickInsertField: (_: string) => void 0,
     toggleDocumentMode: () => void 0,
 } as AppContextType);
 
@@ -33,7 +33,7 @@ export const createAppContextValue = (
     handleOnClickFormField: (dataName: string) => void,
     handleOnBlurFormField: (dataName: string) => void,
     handleOnClickDeleteField: (dataName: string) => void,
-    handleOnClickInsertField: () => void,
+    handleOnClickInsertField: (dataName: string) => void,
     toggleDocumentMode: () => void,
 ): AppContextType => ({
   state,
