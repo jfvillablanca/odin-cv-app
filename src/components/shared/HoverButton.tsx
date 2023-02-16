@@ -1,4 +1,4 @@
-import { AppContext } from '../../App'
+import { AppContext } from "../shared/AppContext";
 import { Component, useContext } from "react";
 
 interface Props {
@@ -29,7 +29,7 @@ class InsertButton extends Component {
 }
 
 function DeleteButton({ field }: { field: string }) {
-    const { handleOnClickDeleteField } = useContext(AppContext)
+    const { handleOnClickDeleteField } = useContext(AppContext);
     return (
         <button
             onClick={() => handleOnClickDeleteField(field)}
