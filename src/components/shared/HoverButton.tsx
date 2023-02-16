@@ -3,23 +3,17 @@ import { Component, useContext } from "react";
 
 interface Props {
     canFieldBeRemoved?: boolean;
-    handleOnClickDeleteField?: Function;
     dataName?: string;
 }
 
 class HoverButton extends Component<Props> {
     render() {
-        const handleOnClickDeleteField = this.props
-            .handleOnClickDeleteField as (dataName: string) => void;
         const { dataName, canFieldBeRemoved = true } = this.props;
         return (
             <div className='absolute flex gap-2 z-10 h-12 bottom-0 transform -translate-x-1/2 translate-y-12 left-1/2'>
                 <InsertButton />
                 {canFieldBeRemoved && (
-                    <DeleteButton
-                        field={dataName as string}
-                        handleClick={handleOnClickDeleteField}
-                    />
+                    <DeleteButton field={dataName as string} />
                 )}
             </div>
         );
