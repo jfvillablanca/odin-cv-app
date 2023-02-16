@@ -45,13 +45,13 @@ const HeaderSubfields: FC<Props> = ({ hoverColor, subfields }) => {
                     <Field
                         tag={"h3"}
                         className={""}
-                        dataName={`headerFields|subfields|${index}|1`}
+                        dataName={`headerFields|subfields|${subfield[0]}|1`}
                         textContent={subfield[1]}
                     />
                     <Field
                         tag={"h3"}
                         className={""}
-                        dataName={`headerFields|subfields|${index}|2`}
+                        dataName={`headerFields|subfields|${subfield[0]}|2`}
                         textContent={subfield[2]}
                     />
                     {documentMode === "section" && isHovered[index] && (
