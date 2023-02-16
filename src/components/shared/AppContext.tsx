@@ -7,6 +7,7 @@ export type AppContextType = {
     handleOnClickFormField: (dataName: string) => void;
     handleOnBlurFormField: (dataName: string) => void;
     handleOnClickDeleteField: (dataName: string) => void;
+    handleOnClickInsertField: () => void;
     toggleDocumentMode: () => void;
 }
 
@@ -16,15 +17,23 @@ export const AppContext = createContext({
     handleOnClickFormField: (_: string) => void 0,
     handleOnBlurFormField: (_: string) => void 0,
     handleOnClickDeleteField: (_: string) => void 0,
+    handleOnClickInsertField: () => void 0,
     toggleDocumentMode: () => void 0,
 } as AppContextType);
 
+// NOTE:
+// - For future noob, like me, on why createAppContextValue is exported
+// - yet no file seems to be importing it
+// - this is used internally by the AppContext (React context object)
+// - to create the context value to consuming components
+// - via useContext hook. Stay curious.
 export const createAppContextValue = (
     state: State, 
     handleFormInput: (event: React.SyntheticEvent) => void,
     handleOnClickFormField: (dataName: string) => void,
     handleOnBlurFormField: (dataName: string) => void,
     handleOnClickDeleteField: (dataName: string) => void,
+    handleOnClickInsertField: () => void,
     toggleDocumentMode: () => void,
 ): AppContextType => ({
   state,
@@ -32,5 +41,6 @@ export const createAppContextValue = (
   handleOnClickFormField: handleOnClickFormField,
   handleOnBlurFormField: handleOnBlurFormField,
   handleOnClickDeleteField: handleOnClickDeleteField,
+  handleOnClickInsertField: handleOnClickInsertField,
   toggleDocumentMode: toggleDocumentMode,
 });
