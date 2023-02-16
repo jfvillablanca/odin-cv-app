@@ -1,6 +1,6 @@
 import { Component } from "react";
 import HoverButton from "../shared/HoverButton";
-import FullName from "./FullName";
+import FieldWrapper from "./FieldWrapper";
 import HeaderSubfields from "./HeaderSubfields";
 
 interface Props {
@@ -39,19 +39,17 @@ class Header extends Component<Props> {
         return (
             <div className='Section grid w-full mb-9'>
                 <div className='flex flex-col'>
-                    <FullName
+                    <FieldWrapper
+                        tag={"h1"}
+                        tailwindStyles={"w-full font-semibold text-3xl mb-6"}
                         hoverColor={hoverColor.blue}
-                        isEditMode={isEditMode}
-                        handleOnClick={handleOnClickFormField}
-                        handleOnBlur={handleOnBlurFormField}
-                        handleFormInput={handleFormInput}
-                        activeField={activeField}
-                        fullName={fullName}
+                        dataName={"headerFields|fullName"}
+                        textContent={fullName}
                     >
                         {documentMode === "section" && (
                             <HoverButton canFieldBeRemoved={false} />
                         )}
-                    </FullName>
+                    </FieldWrapper>
                     {!!statement && (
                             hoverColor={hoverColor.blue}
                         >
