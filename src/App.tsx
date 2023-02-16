@@ -141,13 +141,18 @@ class App extends Component<{}, State> {
             string?,
             string?
         ];
-        const [key1, key2, key3 = "", key4 = ""] = stateKeys;
+        const [key1, key2, key3 = ""] = stateKeys;
         this.setState((prevState) => {
             const updatedState = { ...prevState };
+            if (Array.isArray(updatedState[key1][key2])) {
+                const stateArray = updatedState[key1][key2];
+                delete stateArray[key3];
+                return stateArray;
+            }
             delete updatedState[key1][key2];
             return updatedState;
         });
-    }
+    };
 
     toggleDocumentMode = () => {
         this.setState((prevState) => {
