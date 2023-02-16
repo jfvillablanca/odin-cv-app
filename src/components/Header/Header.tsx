@@ -2,7 +2,6 @@ import { Component } from "react";
 import HoverButton from "../shared/HoverButton";
 import FullName from "./FullName";
 import HeaderSubfields from "./HeaderSubfields";
-import Statement from "./Statement";
 
 interface Props {
     isEditMode: boolean;
@@ -54,17 +53,8 @@ class Header extends Component<Props> {
                         )}
                     </FullName>
                     {!!statement && (
-                        <Statement
                             hoverColor={hoverColor.blue}
-                            isEditMode={isEditMode}
-                            handleOnClick={handleOnClickFormField}
-                            handleOnBlur={handleOnBlurFormField}
-                            handleFormInput={handleFormInput}
-                            activeField={activeField}
-                            statement={statement}
                         >
-                            {documentMode === "section" && <HoverButton />}
-                        </Statement>
                     )}
                     {subfields.length !== 0 && (
                         <HeaderSubfields
