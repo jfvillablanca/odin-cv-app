@@ -137,13 +137,8 @@ class App extends Component<{}, State> {
     };
 
     handleOnClickDeleteField = (dataName: string) => {
-        const stateKeys = dataName.split("|") as [
-            string,
-            string,
-            string?,
-            string?
-        ];
-        const [key1, key2, key3 = ""] = stateKeys;
+        const stateKeys = dataName.split("|") as [string, string, string?];
+        const [key1, key2, subfieldId = ""] = stateKeys;
         this.setState((prevState) => {
             const updatedState = { ...prevState };
             if (Array.isArray(updatedState[key1][key2])) {
