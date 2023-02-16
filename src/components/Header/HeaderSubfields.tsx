@@ -1,14 +1,14 @@
 import { FC, useContext, useState } from "react";
 import { AppContext } from "../shared/AppContext";
 import Field from "../shared/Field";
+import HoverButton from "../shared/HoverButton";
 
 interface Props {
     hoverColor: string;
     subfields: Array<[string, string, string]>;
-    children?: React.ReactNode;
 }
 
-const HeaderSubfields: FC<Props> = ({ hoverColor, subfields, children }) => {
+const HeaderSubfields: FC<Props> = ({ hoverColor, subfields }) => {
     const [isHovered, setIsHovered] = useState(
         new Array(subfields.length).fill(false)
     );
@@ -29,9 +29,8 @@ const HeaderSubfields: FC<Props> = ({ hoverColor, subfields, children }) => {
         });
     };
 
-    const { editMode } = useContext(AppContext).state;
+    const { editMode, documentMode } = useContext(AppContext).state;
 
-    const hoverButton = children;
     const headerSubFields = subfields.map(
         (subfield: string[], index: number) => {
             return (
@@ -55,7 +54,11 @@ const HeaderSubfields: FC<Props> = ({ hoverColor, subfields, children }) => {
                         dataName={`headerFields|subfields|${index}|2`}
                         textContent={subfield[2]}
                     />
-                    {isHovered[index] && hoverButton}
+                    {documentMode === "section" && isHovered[index] && (
+                        <HoverButton
+                            dataName={`headerFields|subfields|${subfield[0]}`}
+                        />
+                    )}
                 </div>
             );
         }
