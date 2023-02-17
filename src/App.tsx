@@ -251,4 +251,21 @@ function populateOrderedFieldsToRender(
     });
 }
 
+function setFieldValueById(
+    orderedFieldsToRender: OrderedFieldsToRender,
+    fieldId: string,
+    updatedValue: any
+): OrderedFieldsToRender {
+    return orderedFieldsToRender.map((orderedField) => {
+        const [id, name, value] = orderedField;
+        if (id === fieldId) {
+            return [id, name, updatedValue];
+        } else if (Array.isArray(value)) {
+            return [id, name, setFieldValueById(value, fieldId, updatedValue)];
+        } else {
+            return orderedField;
+        }
+    });
+}
+
 export default App;
