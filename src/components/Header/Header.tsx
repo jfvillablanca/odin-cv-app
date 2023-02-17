@@ -1,10 +1,12 @@
 import { Component } from "react";
 import HoverButton from "../shared/HoverButton";
+import { OrderedFieldsToRender } from "../../App";
 import FieldWrapper from "./FieldWrapper";
 import HeaderSubfields from "./HeaderSubfields";
 
 interface Props {
     documentMode: "section" | "field";
+    orderedFieldsToRender: OrderedFieldsToRender;
     headerFields: {
         fullName: string;
         statement?: string;
