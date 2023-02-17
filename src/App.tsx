@@ -43,6 +43,7 @@ export interface State {
 }
 
 const HeaderFieldsTemplate: HeaderValues = {
+    _sectionName: "headerFields",
     fullName: "Lorem Ipsum",
     statement:
         "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi.",
