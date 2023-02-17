@@ -48,6 +48,7 @@ class Header extends Component<Props> {
         return (
             <div className='Section grid w-full mb-9'>
                 <div className='flex flex-col'>
+                    {headerFields}
                 </div>
             </div>
         );
