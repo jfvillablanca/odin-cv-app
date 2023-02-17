@@ -4,13 +4,7 @@ import FieldWrapper from "./FieldWrapper";
 import HeaderSubfields from "./HeaderSubfields";
 
 interface Props {
-    documentMode: "section" | "field";
     orderedFieldsToRender: OrderedFieldsToRender;
-    headerFields: {
-        fullName: string;
-        statement?: string;
-        subfields?: Array<[string, string, string]>;
-    };
 }
 
 const hoverColor = {
