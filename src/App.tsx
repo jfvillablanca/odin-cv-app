@@ -143,8 +143,8 @@ class App extends Component<{}, State> {
         }
     };
 
-    handleOnBlurFormField = (dataName: string) => {
-        if (this.state.currentTarget === dataName) {
+    handleOnBlurFormField = (fieldId: string) => {
+        if (this.state.currentTarget === fieldId) {
             this.setState({
                 editMode: false,
                 currentTarget: null,
