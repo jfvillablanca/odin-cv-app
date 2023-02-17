@@ -7,7 +7,7 @@ interface Props {
     tag: keyof JSX.IntrinsicElements;
     tailwindStyles: string;
     hoverColor: string;
-    dataName: string;
+    fieldId: string;
     textContent: string;
     canFieldBeRemoved: boolean;
 }
@@ -16,7 +16,7 @@ const FieldWrapper: FC<Props> = ({
     tag,
     tailwindStyles,
     hoverColor,
-    dataName,
+    fieldId,
     textContent,
     canFieldBeRemoved,
 }) => {
@@ -41,13 +41,13 @@ const FieldWrapper: FC<Props> = ({
             <Field
                 tag={tag}
                 className={tailwindStyles}
-                dataName={dataName}
+                fieldId={fieldId}
                 textContent={textContent}
             />
             {isHovered && documentMode === "section" && (
                 <HoverButton
                     canFieldBeRemoved={canFieldBeRemoved}
-                    dataName={dataName}
+                    fieldId={fieldId}
                 />
             )}
         </div>

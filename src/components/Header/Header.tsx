@@ -16,14 +16,12 @@ const fieldConfig: { [key: string]: any } = {
         tag: "h1",
         tailwindStyles: "w-full font-semibold text-3xl mb-6",
         hoverColor: hoverColor.blue,
-        dataName: "headerFields|fullName",
         canFieldBeRemoved: false,
     },
     statement: {
         tag: "p",
         tailwindStyles: "w-full mb-6",
         hoverColor: hoverColor.blue,
-        dataName: "headerFields|statement",
         canFieldBeRemoved: true,
     },
 };
@@ -38,6 +36,7 @@ class Header extends Component<Props> {
                 return (
                     <FieldWrapper
                         key={id}
+                        fieldId={id}
                         {...fieldWrapperConfigs}
                         textContent={fieldValue}
                     />
