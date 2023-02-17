@@ -262,4 +262,28 @@ function setFieldValueById(
     });
 }
 
+function deleteFieldById(
+    orderedFields: OrderedFieldsToRender,
+    fieldId: string
+): OrderedFieldsToRender {
+    return orderedFields
+        .map((orderedField) => {
+            const [id, name, value] = orderedField;
+
+            if (id === fieldId) {
+                return null;
+            } else if (Array.isArray(value)) {
+                const updatedValue = deleteFieldById(value, fieldId);
+                if (updatedValue.length === 0) {
+                    return null;
+                } else {
+                    return [id, name, updatedValue];
+                }
+            } else {
+                return [id, name, value];
+            }
+        })
+        .filter((value) => value !== null) as OrderedFieldsToRender;
+}
+
 export default App;
