@@ -43,9 +43,9 @@ const templateState: State = {
         statement:
             "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi.",
         subfields: [
-            ["id_" + nanoid(), "profession", "professor"],
-            ["id_" + nanoid(), "phone", "696969"],
-            ["id_" + nanoid(), "email", "email@email.com"],
+            [getID(), "profession", "professor"],
+            [getID(), "phone", "696969"],
+            [getID(), "email", "email@email.com"],
         ],
     } as HeaderValues,
 };
