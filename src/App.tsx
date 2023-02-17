@@ -207,4 +207,32 @@ function getID(): string {
     return "id_" + nanoid();
 }
 
+function populateOrderedFieldsToRender(
+    fieldComponent: HeaderValues //NOTE: Temporary, should be a union of header and block
+): OrderedFieldsToRender {
+    const orderedFieldsToRender: OrderedFieldsToRender = Object.entries(
+        fieldComponent
+    ).map(([key, value]) => {
+        if (Array.isArray(fieldComponent[key])) {
+            const arrayValue = fieldComponent[key].map((subfield: any) => {
+                // FIXME: Remove getID() from headerFields.subfields
+                // - and use the generated ID here instead
+                // TODO: assign iD for main field component (like HeaderFields/Block)
+                // - instead of using stateKeys and dataName
+
+                // if (isID(subfield[0])) {
+                //     return [subfield[0], subfield];
+                // }
+                // return [getID(), subfield, value];
+                return subfield;
+            });
+
+            return [getID(), key, arrayValue];
+        } else {
+            return [getID(), key, value];
+        }
+    });
+    return orderedFieldsToRender;
+}
+
 export default App;
