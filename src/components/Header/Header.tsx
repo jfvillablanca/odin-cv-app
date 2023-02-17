@@ -36,6 +36,20 @@ const fieldConfig: { [key: string]: any } = {
 
 class Header extends Component<Props> {
     render() {
+        const orderedFieldsToRender = this.props.orderedFieldsToRender;
+        const headerFields = orderedFieldsToRender.map((fieldToRender) => {
+            const [id, fieldName, fieldValue] = fieldToRender;
+            const fieldWrapperConfigs = fieldConfig[fieldName];
+            if (fieldWrapperConfigs) {
+                return (
+                    <FieldWrapper
+                        key={id}
+                        {...fieldWrapperConfigs}
+                        textContent={fieldValue}
+                    />
+                );
+            }
+        });
 
         return (
             <div className='Section grid w-full mb-9'>
