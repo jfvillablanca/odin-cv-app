@@ -35,25 +35,25 @@ export interface State {
     documentMode: "section" | "field";
     currentTarget: string | null;
     orderedFieldsToRender: OrderedFieldsToRender;
-    headerFields: HeaderValues;
     [key: string]: any;
 }
+
+const HeaderFieldsTemplate: HeaderValues = {
+    fullName: "Lorem Ipsum",
+    statement:
+        "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi.",
+    subfields: [
+        [getID(), "profession", "professor"],
+        [getID(), "phone", "696969"],
+        [getID(), "email", "email@email.com"],
+    ],
+};
 
 const templateState: State = {
     editMode: false,
     documentMode: "field",
     currentTarget: null,
     orderedFieldsToRender: [],
-    headerFields: {
-        fullName: "Lorem Ipsum",
-        statement:
-            "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi.",
-        subfields: [
-            [getID(), "profession", "professor"],
-            [getID(), "phone", "696969"],
-            [getID(), "email", "email@email.com"],
-        ],
-    } as HeaderValues,
 };
 
 class App extends Component<{}, State> {
