@@ -19,6 +19,7 @@ interface HeaderValues {
     fullName: string;
     statement?: string;
     subfields?: Array<[string, string, string]>;
+    [key: string]: any;
 }
 
 interface BlockValues {
