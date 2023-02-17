@@ -1,6 +1,7 @@
 import { FC, useContext, useState } from "react";
 import { AppContext } from "../shared/AppContext";
 import Field from "../shared/Field";
+import HoverButton from "../shared/HoverButton";
 
 interface Props {
     tag: keyof JSX.IntrinsicElements;
@@ -8,10 +9,17 @@ interface Props {
     hoverColor: string;
     dataName: string;
     textContent: string;
-    children?: React.ReactNode;
+    canFieldBeRemoved: boolean;
 }
 
-const FullName: FC<Props> = ({ tag, tailwindStyles, hoverColor, dataName, textContent, children }) => {
+const FullName: FC<Props> = ({
+    tag,
+    tailwindStyles,
+    hoverColor,
+    dataName,
+    textContent,
+    canFieldBeRemoved,
+}) => {
     const [isHovered, setIsHovered] = useState(false);
 
     const handleMouseEnter = () => {
@@ -22,9 +30,8 @@ const FullName: FC<Props> = ({ tag, tailwindStyles, hoverColor, dataName, textCo
         setIsHovered(() => false);
     };
 
-    const { editMode } = useContext(AppContext).state;
+    const { editMode, documentMode } = useContext(AppContext).state;
 
-    const hoverButton = children;
     return (
         <div
             className={!editMode ? `${hoverColor} relative` : "relative"}
@@ -37,7 +44,12 @@ const FullName: FC<Props> = ({ tag, tailwindStyles, hoverColor, dataName, textCo
                 dataName={dataName}
                 textContent={textContent}
             />
-            {isHovered && hoverButton}
+            {isHovered && documentMode === "section" && (
+                <HoverButton
+                    canFieldBeRemoved={canFieldBeRemoved}
+                    dataName={dataName}
+                />
+            )}
         </div>
     );
 };
