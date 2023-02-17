@@ -15,7 +15,11 @@ interface Field {
     p?: string;
 }
 
-interface HeaderValues {
+interface Section {
+    _sectionName: string;
+}
+
+interface HeaderValues extends Section {
     fullName: string;
     statement?: string;
     subfields?: Array<[string, string]>;
