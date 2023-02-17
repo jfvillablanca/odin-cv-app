@@ -210,7 +210,7 @@ class App extends Component<{}, State> {
 }
 
 function checkForEmptyField(value: string) {
-    if (value === "") {
+    if (value.trim() === "") {
         return "Write here";
     }
     return value;
