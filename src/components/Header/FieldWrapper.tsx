@@ -12,7 +12,7 @@ interface Props {
     canFieldBeRemoved: boolean;
 }
 
-const FullName: FC<Props> = ({
+const FieldWrapper: FC<Props> = ({
     tag,
     tailwindStyles,
     hoverColor,
@@ -54,4 +54,4 @@ const FullName: FC<Props> = ({
     );
 };
 
-export default FullName;
+export default FieldWrapper;
