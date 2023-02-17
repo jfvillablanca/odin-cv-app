@@ -134,11 +134,11 @@ class App extends Component<{}, State> {
         }));
     };
 
-    handleOnClickFormField = (dataName: string) => {
+    handleOnClickFormField = (fieldId: string) => {
         if (this.state.documentMode === "field") {
             this.setState({
                 editMode: true,
-                currentTarget: dataName,
+                currentTarget: fieldId,
             });
         }
     };
