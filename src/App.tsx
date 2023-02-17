@@ -188,6 +188,9 @@ class App extends Component<{}, State> {
                     <A4 documentMode={this.state.documentMode}>
                         <Header
                             documentMode={this.state.documentMode}
+                            orderedFieldsToRender={
+                                this.state.orderedFieldsToRender
+                            }
                             headerFields={this.state.headerFields}
                         />
                         <ModifyButton
