@@ -203,4 +203,8 @@ function checkForEmptyField(stateKeys: [string, string], value: string) {
     return value;
 }
 
+function getID(): string {
+    return "id_" + nanoid();
+}
+
 export default App;
