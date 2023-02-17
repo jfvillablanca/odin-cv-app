@@ -107,21 +107,26 @@ class App extends Component<{}, State> {
             string?,
             string?
         ];
-        const [key1, key2, subfieldId = "", subfieldIndex = ""] = stateKeys;
-        const updatedValue = checkForEmptyField([key1, key2], target.value);
+        const [key1, fieldToUpdate, subfieldId = "", subfieldIndex = ""] =
+            stateKeys;
+        const updatedValue = checkForEmptyField(
+            [key1, fieldToUpdate],
+            target.value
+        );
 
-        this.setState((prevState) => {
-            const updatedState = { ...prevState };
-            if (Array.isArray(updatedState[key1][key2])) {
-                return updatedState[key1][key2].map((subfield: string[]) => {
-                    if (subfield[0] === subfieldId) {
-                        subfield[Number(subfieldIndex)] = updatedValue;
-                    }
-                });
-            }
-            updatedState[key1][key2] = updatedValue;
-            return updatedState;
-        });
+        // TODO:
+        // - Use id instead of field name
+        // - implement for header subfield
+        this.setState((prevState) => ({
+            orderedFieldsToRender: prevState.orderedFieldsToRender.map(
+                (orderedField) => {
+                    const [id, name, _] = orderedField;
+                    return name === fieldToUpdate
+                        ? [id, name, updatedValue]
+                        : orderedField;
+                }
+            ),
+        }));
     };
 
     handleOnClickFormField = (dataName: string) => {
