@@ -27,10 +27,14 @@ interface BlockValues {
     blockFields?: Array<Field>;
 }
 
+export interface OrderedFieldsToRender
+    extends Array<[string | OrderedFieldsToRender, string, any]> {}
+
 export interface State {
     editMode: boolean;
     documentMode: "section" | "field";
     currentTarget: string | null;
+    orderedFieldsToRender: OrderedFieldsToRender;
     headerFields: HeaderValues;
     [key: string]: any;
 }
@@ -39,6 +43,7 @@ const templateState: State = {
     editMode: false,
     documentMode: "field",
     currentTarget: null,
+    orderedFieldsToRender: [],
     headerFields: {
         fullName: "Lorem Ipsum",
         statement:
