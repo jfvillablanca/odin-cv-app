@@ -152,20 +152,15 @@ class App extends Component<{}, State> {
         }
     };
 
-    handleOnClickDeleteField = (dataName: string) => {
-        const stateKeys = dataName.split("|") as [string, string, string?];
-        const [key1, key2, subfieldId = ""] = stateKeys;
-        this.setState((prevState) => {
-            const updatedState = { ...prevState };
-            if (Array.isArray(updatedState[key1][key2])) {
-                updatedState[key1][key2] = updatedState[key1][key2].filter(
-                    (subfield: string[]) => subfield[0] !== subfieldId
-                );
-                return updatedState;
-            }
-            delete updatedState[key1][key2];
-            return updatedState;
-        });
+    handleOnClickDeleteField = (fieldId: string) => {
+        this.setState((prevState) => ({
+            orderedFieldsToRender: deleteFieldById(
+                prevState.orderedFieldsToRender,
+                fieldId
+            ),
+        }));
+    };
+
     };
 
     toggleDocumentMode = () => {
