@@ -12,11 +12,12 @@ interface Props {
     };
 }
 
+const hoverColor = {
+    blue: "hover:bg-blue-100",
+};
+
 class Header extends Component<Props> {
     render() {
-        const hoverColor = {
-            blue: "hover:bg-blue-100",
-        };
         const documentMode = this.props.documentMode;
         const { fullName, statement, subfields = [] } = this.props.headerFields;
 
