@@ -18,7 +18,7 @@ interface Field {
 interface HeaderValues {
     fullName: string;
     statement?: string;
-    subfields?: Array<[string, string, string]>;
+    subfields?: Array<[string, string]>;
     [key: string]: any;
 }
 
@@ -43,9 +43,9 @@ const HeaderFieldsTemplate: HeaderValues = {
     statement:
         "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi.",
     subfields: [
-        [getID(), "profession", "professor"],
-        [getID(), "phone", "696969"],
-        [getID(), "email", "email@email.com"],
+        ["profession", "professor"],
+        ["phone", "696969"],
+        ["email", "email@email.com"],
     ],
 };
 
