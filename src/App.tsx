@@ -126,11 +126,19 @@ class App extends Component<{}, State> {
     };
 
     handleOnBlurFormField = (fieldId: string) => {
+        const updatedValue = checkForEmptyField(
+            getFieldValueById(this.state.orderedFieldsToRender, fieldId)
+        );
         if (this.state.currentTarget === fieldId) {
-            this.setState({
+            this.setState((prevState) => ({
                 editMode: false,
                 currentTarget: null,
-            });
+                orderedFieldsToRender: setFieldValueById(
+                    prevState.orderedFieldsToRender,
+                    fieldId,
+                    updatedValue
+                ),
+            }));
         }
     };
 
