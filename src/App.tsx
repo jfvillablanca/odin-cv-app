@@ -32,7 +32,7 @@ interface BlockValues {
 }
 
 export interface OrderedFieldsToRender
-    extends Array<[string, string, any | OrderedFieldsToRender]> {}
+    extends Array<[string, string | number, any | OrderedFieldsToRender]> {}
 
 export interface State {
     editMode: boolean;
