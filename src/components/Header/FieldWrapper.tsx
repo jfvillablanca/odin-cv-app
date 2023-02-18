@@ -1,17 +1,25 @@
 import { FC, useContext, useState } from "react";
 import { AppContext } from "../shared/AppContext";
 import Field from "../shared/Field";
+import HoverButton from "../shared/HoverButton";
 
 interface Props {
     tag: keyof JSX.IntrinsicElements;
     tailwindStyles: string;
     hoverColor: string;
-    dataName: string;
+    fieldId: string;
     textContent: string;
-    children?: React.ReactNode;
+    canFieldBeRemoved: boolean;
 }
 
-const FullName: FC<Props> = ({ tag, tailwindStyles, hoverColor, dataName, textContent, children }) => {
+const FieldWrapper: FC<Props> = ({
+    tag,
+    tailwindStyles,
+    hoverColor,
+    fieldId,
+    textContent,
+    canFieldBeRemoved,
+}) => {
     const [isHovered, setIsHovered] = useState(false);
 
     const handleMouseEnter = () => {
@@ -22,9 +30,8 @@ const FullName: FC<Props> = ({ tag, tailwindStyles, hoverColor, dataName, textCo
         setIsHovered(() => false);
     };
 
-    const { editMode } = useContext(AppContext).state;
+    const { editMode, documentMode } = useContext(AppContext).state;
 
-    const hoverButton = children;
     return (
         <div
             className={!editMode ? `${hoverColor} relative` : "relative"}
@@ -34,12 +41,17 @@ const FullName: FC<Props> = ({ tag, tailwindStyles, hoverColor, dataName, textCo
             <Field
                 tag={tag}
                 className={tailwindStyles}
-                dataName={dataName}
+                fieldId={fieldId}
                 textContent={textContent}
             />
-            {isHovered && hoverButton}
+            {isHovered && documentMode === "section" && (
+                <HoverButton
+                    canFieldBeRemoved={canFieldBeRemoved}
+                    fieldId={fieldId}
+                />
+            )}
         </div>
     );
 };
 
-export default FullName;
+export default FieldWrapper;

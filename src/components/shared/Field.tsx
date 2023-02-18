@@ -4,22 +4,21 @@ import { AppContext } from "../shared/AppContext";
 interface Props {
     tag: keyof JSX.IntrinsicElements;
     className: string;
-    dataName: string;
+    fieldId: string;
     textContent: string;
 }
 
-const Field: FC<Props> = ({ tag, className, dataName, textContent }) => {
+const Field: FC<Props> = ({ tag, className, fieldId, textContent }) => {
     const { editMode, currentTarget } = useContext(AppContext).state;
     const { handleOnClickFormField, handleOnBlurFormField, handleFormInput } =
         useContext(AppContext);
 
     const Tag = tag;
-    if (!editMode || currentTarget !== dataName) {
+    if (!editMode || currentTarget !== fieldId) {
         return (
             <Tag
                 className={className}
-                onClick={() => handleOnClickFormField(dataName)}
-                data-name={dataName}
+                onClick={() => handleOnClickFormField(fieldId)}
             >
                 {textContent}
             </Tag>
@@ -30,9 +29,8 @@ const Field: FC<Props> = ({ tag, className, dataName, textContent }) => {
                 return (
                     <textarea
                         className={className}
-                        data-name={dataName}
-                        onBlur={() => handleOnBlurFormField(dataName)}
-                        onChange={handleFormInput}
+                        onBlur={() => handleOnBlurFormField(fieldId)}
+                        onChange={(event) => handleFormInput(event, fieldId)}
                         value={textContent}
                         autoFocus
                     />
@@ -41,9 +39,8 @@ const Field: FC<Props> = ({ tag, className, dataName, textContent }) => {
                 return (
                     <input
                         className={className}
-                        data-name={dataName}
-                        onBlur={() => handleOnBlurFormField(dataName)}
-                        onChange={handleFormInput}
+                        onBlur={() => handleOnBlurFormField(fieldId)}
+                        onChange={(event) => handleFormInput(event, fieldId)}
                         value={textContent}
                         autoFocus
                     />

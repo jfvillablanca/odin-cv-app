@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import { Component, createContext } from "react";
+import { Component } from "react";
 import "./App.scss";
 import A4 from "./components/A4";
 import Block from "./components/Block";
@@ -15,10 +15,15 @@ interface Field {
     p?: string;
 }
 
-interface HeaderValues {
+interface Section {
+    _sectionName: string;
+}
+
+interface HeaderValues extends Section {
     fullName: string;
     statement?: string;
-    subfields?: Array<[string, string, string]>;
+    subfields?: Array<[string, string]>;
+    [key: string]: any;
 }
 
 interface BlockValues {
@@ -26,28 +31,34 @@ interface BlockValues {
     blockFields?: Array<Field>;
 }
 
+export interface OrderedFieldsToRender
+    extends Array<[string, string, any | OrderedFieldsToRender]> {}
+
 export interface State {
     editMode: boolean;
     documentMode: "section" | "field";
     currentTarget: string | null;
-    headerFields: HeaderValues;
+    orderedFieldsToRender: OrderedFieldsToRender;
     [key: string]: any;
 }
+
+const HeaderFieldsTemplate: HeaderValues = {
+    _sectionName: "headerFields",
+    fullName: "Lorem Ipsum",
+    statement:
+        "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi.",
+    subfields: [
+        ["profession", "professor"],
+        ["phone", "696969"],
+        ["email", "email@email.com"],
+    ],
+};
 
 const templateState: State = {
     editMode: false,
     documentMode: "field",
     currentTarget: null,
-    headerFields: {
-        fullName: "Lorem Ipsum",
-        statement:
-            "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi.",
-        subfields: [
-            [nanoid(), "profession", "professor"],
-            [nanoid(), "phone", "696969"],
-            [nanoid(), "email", "email@email.com"],
-        ],
-    } as HeaderValues,
+    orderedFieldsToRender: [],
 };
 
 class App extends Component<{}, State> {
@@ -93,61 +104,54 @@ class App extends Component<{}, State> {
         ] as Array<Field>,
     };
 
-    handleFormInput = (event: React.SyntheticEvent) => {
-        const target = event.target as HTMLInputElement;
-        const stateKeys = (target.dataset as any).name.split("|") as [
-            string,
-            string,
-            string?,
-            string?
-        ];
-        const [key1, key2, key3 = "", key4 = ""] = stateKeys;
-        const updatedValue = checkForEmptyField([key1, key2], target.value);
-
-        this.setState((prevState) => {
-            const updatedState = { ...prevState };
-            if (Array.isArray(updatedState[key1][key2])) {
-                const stateArray = updatedState[key1][key2];
-                stateArray[key3 as string][key4 as string] = updatedValue;
-                return stateArray;
-            }
-            updatedState[stateKeys[0]][stateKeys[1]] = updatedValue;
-            return updatedState;
-        });
+    handleFormInput = (event: React.SyntheticEvent, fieldId: string) => {
+        // TODO:
+        // - implement for header subfield
+        this.setState((prevState) => ({
+            orderedFieldsToRender: setFieldValueById(
+                prevState.orderedFieldsToRender,
+                fieldId,
+                (event.target as HTMLInputElement).value
+            ),
+        }));
     };
 
-    handleOnClickFormField = (dataName: string) => {
+    handleOnClickFormField = (fieldId: string) => {
         if (this.state.documentMode === "field") {
             this.setState({
                 editMode: true,
-                currentTarget: dataName,
+                currentTarget: fieldId,
             });
         }
     };
 
-    handleOnBlurFormField = (dataName: string) => {
-        if (this.state.currentTarget === dataName) {
-            this.setState({
+    handleOnBlurFormField = (fieldId: string) => {
+        const updatedValue = checkForEmptyField(
+            getFieldValueById(this.state.orderedFieldsToRender, fieldId)
+        );
+        if (this.state.currentTarget === fieldId) {
+            this.setState((prevState) => ({
                 editMode: false,
                 currentTarget: null,
-            });
+                orderedFieldsToRender: setFieldValueById(
+                    prevState.orderedFieldsToRender,
+                    fieldId,
+                    updatedValue
+                ),
+            }));
         }
     };
 
-    handleOnClickDeleteField = (dataName: string) => {
-        const stateKeys = dataName.split("|") as [
-            string,
-            string,
-            string?,
-            string?
-        ];
-        const [key1, key2, key3 = "", key4 = ""] = stateKeys;
-        this.setState((prevState) => {
-            const updatedState = { ...prevState };
-            delete updatedState[key1][key2];
-            return updatedState;
-        });
-    }
+    handleOnClickDeleteField = (fieldId: string) => {
+        this.setState((prevState) => ({
+            orderedFieldsToRender: deleteFieldById(
+                prevState.orderedFieldsToRender,
+                fieldId
+            ),
+        }));
+    };
+
+    };
 
     toggleDocumentMode = () => {
         this.setState((prevState) => {
@@ -174,6 +178,9 @@ class App extends Component<{}, State> {
                     <A4 documentMode={this.state.documentMode}>
                         <Header
                             documentMode={this.state.documentMode}
+                            orderedFieldsToRender={
+                                this.state.orderedFieldsToRender
+                            }
                             headerFields={this.state.headerFields}
                         />
                         <ModifyButton
@@ -187,17 +194,99 @@ class App extends Component<{}, State> {
     }
 }
 
-function checkForEmptyField(stateKeys: [string, string], value: string) {
-    if (
-        stateKeys[0] === "headerFields" &&
-        stateKeys[1] === "fullName" &&
-        value === ""
-    ) {
-        return "Your name here";
-    } else if (value === "") {
+function checkForEmptyField(value: string) {
+    if (value.trim() === "") {
         return "Write here";
     }
     return value;
+}
+
+function getID(): string {
+    return "id_" + nanoid();
+}
+
+function populateOrderedFieldsToRender(
+    sections: Section[]
+): OrderedFieldsToRender {
+    return sections.map((section) => {
+        const sectionFields = Object.entries(section)
+            .map(([key, value]) => {
+                if (key === "_sectionName") {
+                    return null;
+                }
+                if (Array.isArray(value)) {
+                    const arrayValue = value.map(
+                        (subfieldValue: any, index) => {
+                            return [getID(), index, subfieldValue];
+                        }
+                    );
+                    return [getID(), key, arrayValue];
+                } else {
+                    return [getID(), key, value];
+                }
+            })
+            .filter((field) => field !== null);
+        return [getID(), section._sectionName, sectionFields];
+    });
+}
+
+function setFieldValueById(
+    orderedFieldsToRender: OrderedFieldsToRender,
+    fieldId: string,
+    updatedValue: any
+): OrderedFieldsToRender {
+    return orderedFieldsToRender.map((orderedField) => {
+        const [id, name, value] = orderedField;
+        if (id === fieldId) {
+            return [id, name, updatedValue];
+        } else if (Array.isArray(value)) {
+            return [id, name, setFieldValueById(value, fieldId, updatedValue)];
+        } else {
+            return orderedField;
+        }
+    });
+}
+
+function getFieldValueById(
+    orderedFieldsToRender: OrderedFieldsToRender,
+    fieldId: string
+): any | OrderedFieldsToRender {
+    for (const orderedField of orderedFieldsToRender) {
+        const [id, _, value] = orderedField;
+        if (id === fieldId) {
+            return value;
+        } else if (Array.isArray(value)) {
+            const fieldValue = getFieldValueById(value, fieldId);
+            if (fieldValue !== null) {
+                return fieldValue;
+            }
+        }
+    }
+    return null;
+}
+
+function deleteFieldById(
+    orderedFields: OrderedFieldsToRender,
+    fieldId: string
+): OrderedFieldsToRender {
+    return orderedFields
+        .map((orderedField) => {
+            const [id, name, value] = orderedField;
+
+            if (id === fieldId) {
+                return null;
+            } else if (Array.isArray(value)) {
+                const updatedValue = deleteFieldById(value, fieldId);
+                if (updatedValue.length === 0) {
+                    return null;
+                } else {
+                    return [id, name, updatedValue];
+                }
+            } else {
+                return [id, name, value];
+            }
+        })
+        .filter((value) => value !== null) as OrderedFieldsToRender;
 }
 
 export default App;
