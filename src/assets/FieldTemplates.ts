@@ -1,4 +1,4 @@
-interface Section {
+export interface Section {
     _sectionName: string;
 }
 
