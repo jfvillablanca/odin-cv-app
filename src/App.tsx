@@ -247,6 +247,24 @@ function setFieldValueById(
     });
 }
 
+function getFieldValueById(
+    orderedFieldsToRender: OrderedFieldsToRender,
+    fieldId: string
+): any | OrderedFieldsToRender {
+    for (const orderedField of orderedFieldsToRender) {
+        const [id, _, value] = orderedField;
+        if (id === fieldId) {
+            return value;
+        } else if (Array.isArray(value)) {
+            const fieldValue = getFieldValueById(value, fieldId);
+            if (fieldValue !== null) {
+                return fieldValue;
+            }
+        }
+    }
+    return null;
+}
+
 function deleteFieldById(
     orderedFields: OrderedFieldsToRender,
     fieldId: string
