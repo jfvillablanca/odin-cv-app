@@ -6,7 +6,7 @@ import HoverButton from "../shared/HoverButton";
 
 interface Props {
     hoverColor: string;
-    subfields: Array<[string, string, string]>;
+    subfields: OrderedFieldsToRender;
 }
 
 const HeaderSubfields: FC<Props> = ({ hoverColor, subfields }) => {
