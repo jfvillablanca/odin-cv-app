@@ -104,32 +104,14 @@ class App extends Component<{}, State> {
         ] as Array<Field>,
     };
 
-    handleFormInput = (event: React.SyntheticEvent) => {
-        const target = event.target as HTMLInputElement;
-        const stateKeys = (target.dataset as any).name.split("|") as [
-            string,
-            string,
-            string?,
-            string?
-        ];
-        const [key1, fieldToUpdate, subfieldId = "", subfieldIndex = ""] =
-            stateKeys;
-        const updatedValue = checkForEmptyField(
-            [key1, fieldToUpdate],
-            target.value
-        );
-
+    handleFormInput = (event: React.SyntheticEvent, fieldId: string) => {
         // TODO:
-        // - Use id instead of field name
         // - implement for header subfield
         this.setState((prevState) => ({
-            orderedFieldsToRender: prevState.orderedFieldsToRender.map(
-                (orderedField) => {
-                    const [id, name, _] = orderedField;
-                    return name === fieldToUpdate
-                        ? [id, name, updatedValue]
-                        : orderedField;
-                }
+            orderedFieldsToRender: setFieldValueById(
+                prevState.orderedFieldsToRender,
+                fieldId,
+                (event.target as HTMLInputElement).value
             ),
         }));
     };
