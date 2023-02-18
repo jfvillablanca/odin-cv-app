@@ -214,10 +214,21 @@ function populateOrderedFieldsToRender(
                 if (key === "_sectionName") {
                     return null;
                 }
-                if (Array.isArray(value)) {
+                if (key === "subfields") {
                     const arrayValue = value.map(
-                        (subfieldValue: any, index) => {
-                            return [getID(), index, subfieldValue];
+                        (subfieldValue: any, index: number) => {
+                            const subfieldId = getID();
+                            const field1Id = getID();
+                            const field2Id = getID();
+                            const subfield = [
+                                subfieldId,
+                                index,
+                                [
+                                    [field1Id, "field1", subfieldValue.field1],
+                                    [field2Id, "field2", subfieldValue.field2],
+                                ],
+                            ];
+                            return subfield;
                         }
                     );
                     return [getID(), key, arrayValue];
