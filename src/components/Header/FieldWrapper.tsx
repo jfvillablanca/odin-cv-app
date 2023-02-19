@@ -1,7 +1,7 @@
 import { FC, useContext, useState } from "react";
 import { AppContext } from "../shared/AppContext";
 import Field from "../shared/Field";
-import HoverButton from "../shared/HoverButton";
+import HoverButtonContainer from "../shared/HoverButtonContainer";
 
 interface Props {
     tag: keyof JSX.IntrinsicElements;
@@ -45,7 +45,7 @@ const FieldWrapper: FC<Props> = ({
                 textContent={textContent}
             />
             {isHovered && documentMode === "section" && (
-                <HoverButton
+                <HoverButtonContainer
                     canFieldBeRemoved={canFieldBeRemoved}
                     fieldId={fieldId}
                 />

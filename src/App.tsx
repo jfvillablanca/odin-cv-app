@@ -1,61 +1,49 @@
 import { nanoid } from "nanoid";
 import { Component } from "react";
 import "./App.scss";
+import {
+    BlockTemplate,
+    HeaderFieldsTemplate,
+    Section,
+} from "./assets/FieldTemplates";
 import A4 from "./components/A4";
 import Block from "./components/Block";
 import BlockContainer from "./components/BlockContainer";
+import FieldOptionContainer from "./components/FieldOption";
 import Header from "./components/Header/Header";
 import ModifyButton from "./components/ModifyButton";
 import { AppContext, AppContextType } from "./components/shared/AppContext";
 
-interface Field {
-    id: string;
-    main: string;
-    sub?: string;
-    p?: string;
-}
-
-interface Section {
-    _sectionName: string;
-}
-
-interface HeaderValues extends Section {
-    fullName: string;
-    statement?: string;
-    subfields?: Array<[string, string]>;
-    [key: string]: any;
-}
-
-interface BlockValues {
-    blockHeading: string;
-    blockFields?: Array<Field>;
-}
-
+// NOTE:
+// - This data structure is a big mistake
+// - The state variable has become deeply nested
+// - A technical debt that I don't like to pay
+// - State object should be, ideally, flat
 export interface OrderedFieldsToRender
-    extends Array<[string, string, any | OrderedFieldsToRender]> {}
+    extends Array<[string, string | number, any | OrderedFieldsToRender]> {}
 
 export interface State {
     editMode: boolean;
+    isInsertDialogOpen: boolean;
     documentMode: "section" | "field";
     currentTarget: string | null;
     orderedFieldsToRender: OrderedFieldsToRender;
     [key: string]: any;
 }
 
-const HeaderFieldsTemplate: HeaderValues = {
-    _sectionName: "headerFields",
-    fullName: "Lorem Ipsum",
-    statement:
-        "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi.",
-    subfields: [
-        ["profession", "professor"],
-        ["phone", "696969"],
-        ["email", "email@email.com"],
-    ],
-};
+export interface Handlers {
+    handleFormInput: (event: React.SyntheticEvent, fieldId: string) => void;
+    handleOnClickFormField: (fieldId: string) => void;
+    handleOnBlurFormField: (fieldId: string) => void;
+    handleOnClickDeleteField: (fieldId: string) => void;
+    openInsertFieldDialog: (fieldId: string) => void;
+    closeInsertFieldDialog: () => void;
+    toggleDocumentMode: () => void;
+}
 
 const templateState: State = {
     editMode: false,
+    isInsertDialogOpen: false,
     documentMode: "field",
     currentTarget: null,
     orderedFieldsToRender: [],
@@ -105,8 +93,6 @@ class App extends Component<{}, State> {
     };
 
     handleFormInput = (event: React.SyntheticEvent, fieldId: string) => {
-        // TODO:
-        // - implement for header subfield
         this.setState((prevState) => ({
             orderedFieldsToRender: setFieldValueById(
                 prevState.orderedFieldsToRender,
@@ -127,7 +113,7 @@ class App extends Component<{}, State> {
 
     handleOnBlurFormField = (fieldId: string) => {
         const updatedValue = checkForEmptyField(
-            getFieldValueById(this.state.orderedFieldsToRender, fieldId)
+            getFieldById(this.state.orderedFieldsToRender, fieldId, "value")
         );
         if (this.state.currentTarget === fieldId) {
             this.setState((prevState) => ({
@@ -151,6 +137,14 @@ class App extends Component<{}, State> {
         }));
     };
 
+
+    openInsertFieldDialog = (fieldId: string) => {
+        console.log(fieldId);
+        this.setState({ isInsertDialogOpen: true });
+    };
+
+    closeInsertFieldDialog = () => {
+        this.setState({ isInsertDialogOpen: false });
     };
 
     toggleDocumentMode = () => {
@@ -162,14 +156,20 @@ class App extends Component<{}, State> {
         });
     };
 
+    handlers: Handlers = {
+        handleFormInput: this.handleFormInput,
+        handleOnClickFormField: this.handleOnClickFormField,
+        handleOnBlurFormField: this.handleOnBlurFormField,
+        handleOnClickDeleteField: this.handleOnClickDeleteField,
+        openInsertFieldDialog: this.openInsertFieldDialog,
+        closeInsertFieldDialog: this.closeInsertFieldDialog,
+        toggleDocumentMode: this.toggleDocumentMode,
+    }
+
     render() {
         const context = {
             state: this.state,
-            handleFormInput: this.handleFormInput,
-            handleOnClickFormField: this.handleOnClickFormField,
-            handleOnBlurFormField: this.handleOnBlurFormField,
-            handleOnClickDeleteField: this.handleOnClickDeleteField,
-            toggleDocumentMode: this.toggleDocumentMode,
+            handlers: this.handlers,
         };
 
         return (
@@ -187,6 +187,9 @@ class App extends Component<{}, State> {
                             documentMode={this.state.documentMode}
                             toggleDocumentMode={this.toggleDocumentMode}
                         />
+                        {this.state.isInsertDialogOpen && (
+                            <FieldOptionContainer />
+                        )}
                     </A4>
                 </AppContext.Provider>
             </div>
@@ -214,10 +217,21 @@ function populateOrderedFieldsToRender(
                 if (key === "_sectionName") {
                     return null;
                 }
-                if (Array.isArray(value)) {
+                if (key === "subfields") {
                     const arrayValue = value.map(
-                        (subfieldValue: any, index) => {
-                            return [getID(), index, subfieldValue];
+                        (subfieldValue: any, index: number) => {
+                            const subfieldId = getID();
+                            const field1Id = getID();
+                            const field2Id = getID();
+                            const subfield = [
+                                subfieldId,
+                                index,
+                                [
+                                    [field1Id, "field1", subfieldValue.field1],
+                                    [field2Id, "field2", subfieldValue.field2],
+                                ],
+                            ];
+                            return subfield;
                         }
                     );
                     return [getID(), key, arrayValue];
@@ -247,16 +261,17 @@ function setFieldValueById(
     });
 }
 
-function getFieldValueById(
+function getFieldById(
     orderedFieldsToRender: OrderedFieldsToRender,
-    fieldId: string
+    fieldId: string,
+    attribute: "name" | "value"
 ): any | OrderedFieldsToRender {
     for (const orderedField of orderedFieldsToRender) {
-        const [id, _, value] = orderedField;
+        const [id, name, value] = orderedField;
         if (id === fieldId) {
-            return value;
+            return attribute === "value" ? value : name;
         } else if (Array.isArray(value)) {
-            const fieldValue = getFieldValueById(value, fieldId);
+            const fieldValue = getFieldById(value, fieldId, attribute);
             if (fieldValue !== null) {
                 return fieldValue;
             }
