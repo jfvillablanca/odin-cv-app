@@ -2,8 +2,8 @@ import { AppContext } from "../shared/AppContext";
 import { useContext, useState } from "react";
 
 interface Props {
+    fieldId: string;
     canFieldBeRemoved?: boolean;
-    fieldId?: string;
 }
 
 class HoverButton extends Component<Props> {
