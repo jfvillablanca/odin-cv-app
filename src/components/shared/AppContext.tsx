@@ -1,26 +1,14 @@
 import { createContext } from "react";
-import { State } from "../../App";
+import { Handlers, State } from "../../App";
 
 export type AppContextType = {
     state: State;
-    handleFormInput: (event: React.SyntheticEvent, fieldId: string) => void;
-    handleOnClickFormField: (fieldId: string) => void;
-    handleOnBlurFormField: (fieldId: string) => void;
-    handleOnClickDeleteField: (fieldId: string) => void;
-    openInsertFieldDialog: (fieldId: string) => void;
-    closeInsertFieldDialog: () => void;
-    toggleDocumentMode: () => void;
+    handlers: Handlers;
 };
 
 export const AppContext = createContext({
     state: {},
-    handleFormInput: (_: React.SyntheticEvent, __: string) => void 0,
-    handleOnClickFormField: (_: string) => void 0,
-    handleOnBlurFormField: (_: string) => void 0,
-    handleOnClickDeleteField: (_: string) => void 0,
-    openInsertFieldDialog: (_: string) => void 0,
-    closeInsertFieldDialog: () => void 0,
-    toggleDocumentMode: () => void 0,
+    handlers: {},
 } as AppContextType);
 
 // NOTE:
@@ -31,20 +19,8 @@ export const AppContext = createContext({
 // - via useContext hook. Stay curious.
 export const createAppContextValue = (
     state: State,
-    handleFormInput: (event: React.SyntheticEvent) => void,
-    handleOnClickFormField: (fieldId: string) => void,
-    handleOnBlurFormField: (fieldId: string) => void,
-    handleOnClickDeleteField: (fieldId: string) => void,
-    openInsertFieldDialog: (fieldId: string) => void,
-    closeInsertFieldDialog: () => void,
-    toggleDocumentMode: () => void
+    handlers: Handlers,
 ): AppContextType => ({
     state,
-    handleFormInput: handleFormInput,
-    handleOnClickFormField: handleOnClickFormField,
-    handleOnBlurFormField: handleOnBlurFormField,
-    handleOnClickDeleteField: handleOnClickDeleteField,
-    openInsertFieldDialog: openInsertFieldDialog,
-    closeInsertFieldDialog: closeInsertFieldDialog,
-    toggleDocumentMode: toggleDocumentMode,
+    handlers,
 });
