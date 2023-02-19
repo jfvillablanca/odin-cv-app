@@ -11,7 +11,7 @@ interface Props {
 const Field: FC<Props> = ({ tag, className, fieldId, textContent }) => {
     const { editMode, currentTarget } = useContext(AppContext).state;
     const { handleOnClickFormField, handleOnBlurFormField, handleFormInput } =
-        useContext(AppContext);
+        useContext(AppContext).handlers;
 
     const Tag = tag;
     if (!editMode || currentTarget !== fieldId) {

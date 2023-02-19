@@ -12,7 +12,7 @@ function FieldOptionContainer() {
 }
 
 function ExitButton() {
-    const { closeInsertFieldDialog } = useContext(AppContext);
+    const { closeInsertFieldDialog } = useContext(AppContext).handlers;
     return (
         <button
             onClick={closeInsertFieldDialog}

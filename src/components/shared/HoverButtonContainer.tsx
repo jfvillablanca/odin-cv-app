@@ -22,7 +22,7 @@ function InsertButton({ fieldId }: { fieldId: string }) {
     const tailwindStyles =
         "bg-zinc-50 border-2 border-green-500 text-green-500 hover:bg-green-500 hover:text-zinc-50 hover:border-green-500 opacity-80 text-lg rounded-2xl py-1 px-4 uppercase";
 
-    const { openInsertFieldDialog } = useContext(AppContext);
+    const { openInsertFieldDialog } = useContext(AppContext).handlers;
 
     return (
         <div className='flex flex-col items-center'>
@@ -37,7 +37,7 @@ function InsertButton({ fieldId }: { fieldId: string }) {
 }
 
 function DeleteButton({ fieldId }: { fieldId: string }) {
-    const { handleOnClickDeleteField } = useContext(AppContext);
+    const { handleOnClickDeleteField } = useContext(AppContext).handlers;
     return (
         <button
             onClick={() => handleOnClickDeleteField(fieldId)}
