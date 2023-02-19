@@ -14,6 +14,9 @@ function HoverButton({ fieldId, canFieldBeRemoved = true }: Props) {
         typeof callback === 'function' && callback();
     };
 
+    const tailwindStyles =
+        "absolute flex gap-2 z-10 h-12 bottom-0 transform -translate-x-1/2 translate-y-12 left-1/2";
+
     return (
         <div className='absolute flex gap-2 z-10 h-12 bottom-0 transform -translate-x-1/2 translate-y-12 left-1/2'>
             <InsertButton fieldId={fieldId} isHovered={insertButtonIsHovered} handleHoverState={handleHoverState}/>
