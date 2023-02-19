@@ -231,16 +231,17 @@ function setFieldValueById(
     });
 }
 
-function getFieldValueById(
+function getFieldById(
     orderedFieldsToRender: OrderedFieldsToRender,
-    fieldId: string
+    fieldId: string,
+    attribute: "name" | "value"
 ): any | OrderedFieldsToRender {
     for (const orderedField of orderedFieldsToRender) {
-        const [id, _, value] = orderedField;
+        const [id, name, value] = orderedField;
         if (id === fieldId) {
-            return value;
+            return attribute === "value" ? value : name;
         } else if (Array.isArray(value)) {
-            const fieldValue = getFieldValueById(value, fieldId);
+            const fieldValue = getFieldById(value, fieldId, attribute);
             if (fieldValue !== null) {
                 return fieldValue;
             }
