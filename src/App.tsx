@@ -153,6 +153,10 @@ class App extends Component<{}, State> {
 
     };
 
+    closeInsertFieldDialog = () => {
+        this.setState({openInsertFieldDialogBox: false})
+    }
+
     toggleDocumentMode = () => {
         this.setState((prevState) => {
             return {
