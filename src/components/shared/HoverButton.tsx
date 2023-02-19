@@ -18,14 +18,27 @@ class HoverButton extends Component<Props> {
             </div>
         );
     }
+
+function InsertButton({ fieldId, isHovered, handleHoverState }: { fieldId: string, isHovered: boolean, handleHoverState: (callback?: () => void) => void }) {
+    const { handleOnHoverInsertField } = useContext(AppContext);
+
+    const tailwindStyles =
+        "bg-zinc-50 border-2 border-green-500 text-green-500 hover:bg-gray-500 hover:text-gray-500 hover:border-gray-500 hover:opacity-100 opacity-80 text-lg rounded-2xl py-1 px-4 uppercase";
+
+    return (
+        <>
+            <button
+                onMouseEnter={() => handleHoverState(() => handleOnHoverInsertField(fieldId))}
+                onMouseLeave={() => handleHoverState()}
+                className={tailwindStyles}
+            >
+                {`Insert below`}
+            </button>
+        </>
+        
+    );
 }
 
-class InsertButton extends Component {
-    render() {
-        return (
-            <button className='bg-zinc-50 border-2 border-green-500 text-green-500 hover:bg-green-500 hover:text-zinc-50 hover:border-green-500 opacity-80 text-lg rounded-2xl py-1 px-4 uppercase'>{`Insert below`}</button>
-        );
-    }
 }
 
 function DeleteButton({ fieldId }: { fieldId: string }) {
