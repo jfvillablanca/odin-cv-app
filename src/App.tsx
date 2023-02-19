@@ -24,7 +24,7 @@ export interface OrderedFieldsToRender
 
 export interface State {
     editMode: boolean;
-    openInsertFieldDialogBox: boolean;
+    isInsertDialogOpen: boolean;
     documentMode: "section" | "field";
     currentTarget: string | null;
     orderedFieldsToRender: OrderedFieldsToRender;
@@ -33,7 +33,7 @@ export interface State {
 
 const templateState: State = {
     editMode: false,
-    openInsertFieldDialogBox: false,
+    isInsertDialogOpen: false,
     documentMode: "field",
     currentTarget: null,
     orderedFieldsToRender: [],
@@ -130,11 +130,11 @@ class App extends Component<{}, State> {
 
     openInsertFieldDialog = (fieldId: string) => {
         console.log(fieldId);
-        this.setState({ openInsertFieldDialogBox: true });
+        this.setState({ isInsertDialogOpen: true });
     };
 
     closeInsertFieldDialog = () => {
-        this.setState({ openInsertFieldDialogBox: false });
+        this.setState({ isInsertDialogOpen: false });
     };
 
     toggleDocumentMode = () => {
@@ -171,7 +171,7 @@ class App extends Component<{}, State> {
                             documentMode={this.state.documentMode}
                             toggleDocumentMode={this.toggleDocumentMode}
                         />
-                        {this.state.openInsertFieldDialogBox && (
+                        {this.state.isInsertDialogOpen && (
                             <FieldOptionContainer />
                         )}
                     </A4>
