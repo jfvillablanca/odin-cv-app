@@ -31,6 +31,16 @@ export interface State {
     [key: string]: any;
 }
 
+export interface Handlers {
+    handleFormInput: (event: React.SyntheticEvent, fieldId: string) => void;
+    handleOnClickFormField: (fieldId: string) => void;
+    handleOnBlurFormField: (fieldId: string) => void;
+    handleOnClickDeleteField: (fieldId: string) => void;
+    openInsertFieldDialog: (fieldId: string) => void;
+    closeInsertFieldDialog: () => void;
+    toggleDocumentMode: () => void;
+}
+
 const templateState: State = {
     editMode: false,
     isInsertDialogOpen: false,
