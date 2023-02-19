@@ -31,7 +31,15 @@ function HoverButton({ fieldId, canFieldBeRemoved = true }: Props) {
     );
 }
 
-function InsertButton({ fieldId, isHovered, handleHoverState }: { fieldId: string, isHovered: boolean, handleHoverState: (callback?: () => void) => void }) {
+function InsertButton({
+    fieldId,
+    isHovered,
+    handleHoverState,
+}: {
+    fieldId: string;
+    isHovered: boolean;
+    handleHoverState: (callback?: () => void) => void;
+}) {
     const { handleOnHoverInsertField } = useContext(AppContext);
 
     const tailwindStyles =
@@ -40,7 +48,9 @@ function InsertButton({ fieldId, isHovered, handleHoverState }: { fieldId: strin
     return (
         <>
             <button
-                onMouseEnter={() => handleHoverState(() => handleOnHoverInsertField(fieldId))}
+                onMouseEnter={() =>
+                    handleHoverState(() => handleOnHoverInsertField(fieldId))
+                }
                 onMouseLeave={() => handleHoverState()}
                 className={tailwindStyles}
             >
