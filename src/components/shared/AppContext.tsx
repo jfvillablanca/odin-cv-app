@@ -7,9 +7,10 @@ export type AppContextType = {
     handleOnClickFormField: (fieldId: string) => void;
     handleOnBlurFormField: (fieldId: string) => void;
     handleOnClickDeleteField: (fieldId: string) => void;
-    handleOnClickInsertField: (fieldId: string) => void;
+    openInsertFieldDialog: (fieldId: string) => void;
+    closeInsertFieldDialog: () => void;
     toggleDocumentMode: () => void;
-}
+};
 
 export const AppContext = createContext({
     state: {},
@@ -17,7 +18,8 @@ export const AppContext = createContext({
     handleOnClickFormField: (_: string) => void 0,
     handleOnBlurFormField: (_: string) => void 0,
     handleOnClickDeleteField: (_: string) => void 0,
-    handleOnClickInsertField: (_: string) => void 0,
+    openInsertFieldDialog: (_: string) => void 0,
+    closeInsertFieldDialog: () => void 0,
     toggleDocumentMode: () => void 0,
 } as AppContextType);
 
@@ -28,19 +30,21 @@ export const AppContext = createContext({
 // - to create the context value to consuming components
 // - via useContext hook. Stay curious.
 export const createAppContextValue = (
-    state: State, 
+    state: State,
     handleFormInput: (event: React.SyntheticEvent) => void,
     handleOnClickFormField: (fieldId: string) => void,
     handleOnBlurFormField: (fieldId: string) => void,
     handleOnClickDeleteField: (fieldId: string) => void,
-    handleOnClickInsertField: (fieldId: string) => void,
-    toggleDocumentMode: () => void,
+    openInsertFieldDialog: (fieldId: string) => void,
+    closeInsertFieldDialog: () => void,
+    toggleDocumentMode: () => void
 ): AppContextType => ({
-  state,
-  handleFormInput: handleFormInput,
-  handleOnClickFormField: handleOnClickFormField,
-  handleOnBlurFormField: handleOnBlurFormField,
-  handleOnClickDeleteField: handleOnClickDeleteField,
-  handleOnClickInsertField: handleOnClickInsertField,
-  toggleDocumentMode: toggleDocumentMode,
+    state,
+    handleFormInput: handleFormInput,
+    handleOnClickFormField: handleOnClickFormField,
+    handleOnBlurFormField: handleOnBlurFormField,
+    handleOnClickDeleteField: handleOnClickDeleteField,
+    openInsertFieldDialog: openInsertFieldDialog,
+    closeInsertFieldDialog: closeInsertFieldDialog,
+    toggleDocumentMode: toggleDocumentMode,
 });
