@@ -12,9 +12,15 @@ function FieldOptionContainer() {
 }
 
 function ExitButton() {
+    const { closeInsertFieldDialog } = useContext(AppContext);
     return (
-        <button className="absolute z-20 top-0 right-0 transform translate-x-4 -translate-y-4 h-8 w-8 p-0 bg-red-600 text-zinc-50 font-mono text-sm rounded-none">X</button>
-    )
+        <button
+            onClick={closeInsertFieldDialog}
+            className='absolute z-20 top-0 right-0 transform translate-x-4 -translate-y-4 h-8 w-8 p-0 bg-red-600 text-zinc-50 font-mono text-sm rounded-none'
+        >
+            X
+        </button>
+    );
 }
 
 export default FieldOptionContainer;
