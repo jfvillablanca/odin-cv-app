@@ -8,29 +8,6 @@ import Header from "./components/Header/Header";
 import ModifyButton from "./components/ModifyButton";
 import { AppContext, AppContextType } from "./components/shared/AppContext";
 
-interface Field {
-    id: string;
-    main: string;
-    sub?: string;
-    p?: string;
-}
-
-interface Section {
-    _sectionName: string;
-}
-
-interface HeaderValues extends Section {
-    fullName: string;
-    statement?: string;
-    subfields?: Array<{}>;
-    [key: string]: any;
-}
-
-interface BlockValues {
-    blockHeading: string;
-    blockFields?: Array<Field>;
-}
-
 export interface OrderedFieldsToRender
     extends Array<[string, string | number, any | OrderedFieldsToRender]> {}
 
@@ -42,18 +19,6 @@ export interface State {
     orderedFieldsToRender: OrderedFieldsToRender;
     [key: string]: any;
 }
-
-const HeaderFieldsTemplate: HeaderValues = {
-    _sectionName: "headerFields",
-    fullName: "Lorem Ipsum",
-    statement:
-        "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi.",
-    subfields: [
-        { field1: "profession", field2: "professor" },
-        { field1: "phone", field2: "234234" },
-        { field1: "email", field2: "email@email.com" },
-    ],
-};
 
 const templateState: State = {
     editMode: false,
@@ -107,8 +72,6 @@ class App extends Component<{}, State> {
     };
 
     handleFormInput = (event: React.SyntheticEvent, fieldId: string) => {
-        // TODO:
-        // - implement for header subfield
         this.setState((prevState) => ({
             orderedFieldsToRender: setFieldValueById(
                 prevState.orderedFieldsToRender,
@@ -156,12 +119,12 @@ class App extends Component<{}, State> {
 
     openInsertFieldDialog = (fieldId: string) => {
         console.log(fieldId);
-        this.setState({openInsertFieldDialogBox: true})
+        this.setState({ openInsertFieldDialogBox: true });
     };
 
     closeInsertFieldDialog = () => {
-        this.setState({openInsertFieldDialogBox: false})
-    }
+        this.setState({ openInsertFieldDialogBox: false });
+    };
 
     toggleDocumentMode = () => {
         this.setState((prevState) => {
