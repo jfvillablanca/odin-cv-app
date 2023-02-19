@@ -153,6 +153,10 @@ class App extends Component<{}, State> {
         }));
     };
 
+
+    openInsertFieldDialog = (fieldId: string) => {
+        console.log(fieldId);
+        this.setState({openInsertFieldDialogBox: true})
     };
 
     closeInsertFieldDialog = () => {
