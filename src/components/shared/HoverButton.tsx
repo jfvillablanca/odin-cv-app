@@ -10,22 +10,26 @@ function HoverButton({ fieldId, canFieldBeRemoved = true }: Props) {
     const [insertButtonIsHovered, setInsertButtonIsHovered] = useState(false);
 
     const handleHoverState = (callback: (() => void) | null = null): void => {
-        setInsertButtonIsHovered(prevState => !prevState);
-        typeof callback === 'function' && callback();
+        setInsertButtonIsHovered((prevState) => !prevState);
+        typeof callback === "function" && callback();
     };
 
     const tailwindStyles =
         "absolute flex gap-2 z-10 h-12 bottom-0 transform -translate-x-1/2 translate-y-12 left-1/2";
 
     return (
-        <div className='absolute flex gap-2 z-10 h-12 bottom-0 transform -translate-x-1/2 translate-y-12 left-1/2'>
-            <InsertButton fieldId={fieldId} isHovered={insertButtonIsHovered} handleHoverState={handleHoverState}/>
+        <div className={tailwindStyles}>
+            <InsertButton
+                fieldId={fieldId}
+                isHovered={insertButtonIsHovered}
+                handleHoverState={handleHoverState}
+            />
             {canFieldBeRemoved && !insertButtonIsHovered && (
                 <DeleteButton fieldId={fieldId} />
             )}
         </div>
     );
-};
+}
 
 function InsertButton({ fieldId, isHovered, handleHoverState }: { fieldId: string, isHovered: boolean, handleHoverState: (callback?: () => void) => void }) {
     const { handleOnHoverInsertField } = useContext(AppContext);
