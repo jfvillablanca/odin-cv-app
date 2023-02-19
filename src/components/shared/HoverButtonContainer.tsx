@@ -1,5 +1,5 @@
 import { AppContext } from "../shared/AppContext";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
 interface Props {
     fieldId: string;
@@ -7,77 +7,32 @@ interface Props {
 }
 
 function HoverButtonContainer({ fieldId, canFieldBeRemoved = true }: Props) {
-    const [insertButtonIsHovered, setInsertButtonIsHovered] = useState(false);
-
-    const handleHoverState = (callback: (() => void) | null = null): void => {
-        setInsertButtonIsHovered((prevState) => !prevState);
-        typeof callback === "function" && callback();
-    };
-
     const tailwindStyles =
         "absolute flex gap-2 z-10 h-12 bottom-0 transform -translate-x-1/2 translate-y-12 left-1/2";
 
     return (
         <div className={tailwindStyles}>
-            <InsertButton
-                fieldId={fieldId}
-                isHovered={insertButtonIsHovered}
-                handleHoverState={handleHoverState}
-            />
-            {canFieldBeRemoved && !insertButtonIsHovered && (
-                <DeleteButton fieldId={fieldId} />
-            )}
+            <InsertButton fieldId={fieldId} />
+            {canFieldBeRemoved && <DeleteButton fieldId={fieldId} />}
         </div>
     );
 }
 
-function InsertButton({
-    fieldId,
-    isHovered,
-    handleHoverState,
-}: {
-    fieldId: string;
-    isHovered: boolean;
-    handleHoverState: (callback?: () => void) => void;
-}) {
-    const { handleOnHoverInsertField } = useContext(AppContext);
-
+function InsertButton({ fieldId }: { fieldId: string }) {
     const tailwindStyles =
-        "bg-zinc-50 border-2 border-green-500 text-green-500 hover:bg-gray-500 hover:text-gray-500 hover:border-gray-500 hover:opacity-100 opacity-80 text-lg rounded-2xl py-1 px-4 uppercase";
+        "bg-zinc-50 border-2 border-green-500 text-green-500 hover:bg-green-500 hover:text-zinc-50 hover:border-green-500 opacity-80 text-lg rounded-2xl py-1 px-4 uppercase";
+
+    const { handleOnClickInsertField } = useContext(AppContext);
 
     return (
-        <>
+        <div className='flex flex-col items-center'>
             <button
-                onMouseEnter={() =>
-                    handleHoverState(() => handleOnHoverInsertField(fieldId))
-                }
-                onMouseLeave={() => handleHoverState()}
+                onClick={() => handleOnClickInsertField(fieldId)}
                 className={tailwindStyles}
             >
                 {`Insert below`}
             </button>
-            {isHovered && (
-                <InsertOptionButton handleHoverState={handleHoverState} />
-            )}
-        </>
-    );
-}
-
-function InsertOptionButton({
-    handleHoverState,
-}: {
-    handleHoverState: () => void;
-}) {
-    const { handleOnClickInsertField } = useContext(AppContext);
-    // console.log(fieldId);
-    return (
-        <button
-            onClick={() => handleOnClickInsertField("asdf")}
-            onMouseEnter={() => handleHoverState()}
-            className='bg-zinc-50 border-2 border-green-500 text-green-500 hover:bg-green-500 hover:text-zinc-50 hover:border-green-500 opacity-80 text-lg rounded-2xl py-1 px-4 uppercase'
-        >
-            {`Insert below`}
-        </button>
+        </div>
     );
 }
 
