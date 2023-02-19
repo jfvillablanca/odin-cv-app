@@ -36,6 +36,7 @@ export interface OrderedFieldsToRender
 
 export interface State {
     editMode: boolean;
+    openInsertFieldDialogBox: boolean;
     documentMode: "section" | "field";
     currentTarget: string | null;
     orderedFieldsToRender: OrderedFieldsToRender;
@@ -56,6 +57,7 @@ const HeaderFieldsTemplate: HeaderValues = {
 
 const templateState: State = {
     editMode: false,
+    openInsertFieldDialogBox: false,
     documentMode: "field",
     currentTarget: null,
     orderedFieldsToRender: [],
