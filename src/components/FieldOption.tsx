@@ -1,4 +1,4 @@
-function FieldOption(){
+function FieldOptionContainer() {
 }
 
-export default FieldOption
+export default FieldOptionContainer;
