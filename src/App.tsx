@@ -146,14 +146,20 @@ class App extends Component<{}, State> {
         });
     };
 
+    handlers: Handlers = {
+        handleFormInput: this.handleFormInput,
+        handleOnClickFormField: this.handleOnClickFormField,
+        handleOnBlurFormField: this.handleOnBlurFormField,
+        handleOnClickDeleteField: this.handleOnClickDeleteField,
+        openInsertFieldDialog: this.openInsertFieldDialog,
+        closeInsertFieldDialog: this.closeInsertFieldDialog,
+        toggleDocumentMode: this.toggleDocumentMode,
+    }
+
     render() {
         const context = {
             state: this.state,
-            handleFormInput: this.handleFormInput,
-            handleOnClickFormField: this.handleOnClickFormField,
-            handleOnBlurFormField: this.handleOnBlurFormField,
-            handleOnClickDeleteField: this.handleOnClickDeleteField,
-            toggleDocumentMode: this.toggleDocumentMode,
+            handlers: this.handlers,
         };
 
         return (
