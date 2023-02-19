@@ -9,10 +9,16 @@ import {
 import A4 from "./components/A4";
 import Block from "./components/Block";
 import BlockContainer from "./components/BlockContainer";
+import FieldOptionContainer from "./components/FieldOption";
 import Header from "./components/Header/Header";
 import ModifyButton from "./components/ModifyButton";
 import { AppContext, AppContextType } from "./components/shared/AppContext";
 
+// NOTE:
+// - This data structure is a big mistake
+// - The state variable has become deeply nested
+// - A technical debt that I don't like to pay
+// - State object should be, ideally, flat
 export interface OrderedFieldsToRender
     extends Array<[string, string | number, any | OrderedFieldsToRender]> {}
 
@@ -165,6 +171,9 @@ class App extends Component<{}, State> {
                             documentMode={this.state.documentMode}
                             toggleDocumentMode={this.toggleDocumentMode}
                         />
+                        {this.state.openInsertFieldDialogBox && (
+                            <FieldOptionContainer />
+                        )}
                     </A4>
                 </AppContext.Provider>
             </div>
