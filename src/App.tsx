@@ -1,6 +1,11 @@
 import { nanoid } from "nanoid";
 import { Component } from "react";
 import "./App.scss";
+import {
+    BlockTemplate,
+    HeaderFieldsTemplate,
+    Section,
+} from "./assets/FieldTemplates";
 import A4 from "./components/A4";
 import Block from "./components/Block";
 import BlockContainer from "./components/BlockContainer";
