@@ -92,7 +92,7 @@ class App extends Component<{}, State> {
 
     handleOnBlurFormField = (fieldId: string) => {
         const updatedValue = checkForEmptyField(
-            getFieldValueById(this.state.orderedFieldsToRender, fieldId)
+            getFieldById(this.state.orderedFieldsToRender, fieldId, "value")
         );
         if (this.state.currentTarget === fieldId) {
             this.setState((prevState) => ({
