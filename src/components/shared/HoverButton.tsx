@@ -1,5 +1,5 @@
 import { AppContext } from "../shared/AppContext";
-import { Component, useContext } from "react";
+import { useContext, useState } from "react";
 
 interface Props {
     canFieldBeRemoved?: boolean;
