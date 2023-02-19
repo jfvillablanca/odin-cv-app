@@ -2,7 +2,7 @@ import { FC, Key, useContext, useState } from "react";
 import { OrderedFieldsToRender } from "../../App";
 import { AppContext } from "../shared/AppContext";
 import Field from "../shared/Field";
-import HoverButton from "../shared/HoverButton";
+import HoverButtonContainer from "../shared/HoverButtonContainer";
 
 interface Props {
     hoverColor: string;
@@ -62,7 +62,9 @@ const HeaderSubfields: FC<Props> = ({ hoverColor, subfields }) => {
                         textContent={field2.value}
                     />
                     {documentMode === "section" && isHovered[index] && (
-                        <HoverButton fieldId={fieldId as unknown as string} />
+                        <HoverButtonContainer
+                            fieldId={fieldId as unknown as string}
+                        />
                     )}
                 </div>
             );

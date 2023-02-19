@@ -6,7 +6,7 @@ interface Props {
     canFieldBeRemoved?: boolean;
 }
 
-function HoverButton({ fieldId, canFieldBeRemoved = true }: Props) {
+function HoverButtonContainer({ fieldId, canFieldBeRemoved = true }: Props) {
     const [insertButtonIsHovered, setInsertButtonIsHovered] = useState(false);
 
     const handleHoverState = (callback: (() => void) | null = null): void => {
@@ -56,11 +56,29 @@ function InsertButton({
             >
                 {`Insert below`}
             </button>
+            {isHovered && (
+                <InsertOptionButton handleHoverState={handleHoverState} />
+            )}
         </>
-        
     );
 }
 
+function InsertOptionButton({
+    handleHoverState,
+}: {
+    handleHoverState: () => void;
+}) {
+    const { handleOnClickInsertField } = useContext(AppContext);
+    // console.log(fieldId);
+    return (
+        <button
+            onClick={() => handleOnClickInsertField("asdf")}
+            onMouseEnter={() => handleHoverState()}
+            className='bg-zinc-50 border-2 border-green-500 text-green-500 hover:bg-green-500 hover:text-zinc-50 hover:border-green-500 opacity-80 text-lg rounded-2xl py-1 px-4 uppercase'
+        >
+            {`Insert below`}
+        </button>
+    );
 }
 
 function DeleteButton({ fieldId }: { fieldId: string }) {
@@ -73,4 +91,4 @@ function DeleteButton({ fieldId }: { fieldId: string }) {
     );
 }
 
-export default HoverButton;
+export default HoverButtonContainer;
